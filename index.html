@@ -103,6 +103,8 @@
 
     .logo-container {
       margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
     }
 
     .logo-container img {
@@ -112,6 +114,7 @@
       border: 3px solid var(--accent-purple);
       box-shadow: 0 0 15px var(--accent-purple);
       object-fit: cover;
+      background-color: #1a050d;
     }
 
     h1 {
@@ -244,7 +247,7 @@
   <!-- Initial User Tap Overlay -->
   <div id="startOverlay">
     <div class="logo-container">
-      <img src="https://ibb.co/WWNK9qxv" alt="Zaka Sensi Logo">
+      <img class="zaka-logo" src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo" onerror="handleImageError(this)">
     </div>
     <h1>Zaka Sensi</h1>
     <button class="btn-action" style="max-width: 250px;" onclick="startApp()">Enter Site</button>
@@ -253,7 +256,7 @@
   <!-- Loading Screen Overlay -->
   <div id="loaderOverlay">
     <div class="logo-container">
-      <img src="https://ibb.co/WWNK9qxv" alt="Zaka Sensi Logo">
+      <img class="zaka-logo" src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo" onerror="handleImageError(this)">
     </div>
     <div class="loader-text" id="loaderText">0%</div>
     <div class="loader-bar-bg">
@@ -264,7 +267,7 @@
   <!-- Main Website Container -->
   <div class="container" id="mainContainer">
     <div class="logo-container">
-      <img src="https://ibb.co/WWNK9qxv" alt="Zaka Sensi Logo">
+      <img class="zaka-logo" src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo" onerror="handleImageError(this)">
     </div>
 
     <h1>Zaka Sensi</h1>
@@ -337,6 +340,12 @@
   <script>
     const audio = document.getElementById('sensiAudio');
     let soundPlayed = false;
+
+    function handleImageError(imgElement) {
+      // Direct direct-link fallback if primary fails to resolve
+      imgElement.onerror = null;
+      imgElement.src = 'https://i.ibb.co/WWNK9qxv';
+    }
 
     function startApp() {
       document.getElementById('startOverlay').style.display = 'none';
