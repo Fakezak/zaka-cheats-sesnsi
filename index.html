@@ -241,10 +241,10 @@
   <!-- Audio Element -->
   <audio id="sensiAudio" src="https://files.catbox.moe/mkojpz.wav" preload="auto"></audio>
 
-  <!-- Initial User Tap Overlay to satisfy browser autoplay policies -->
+  <!-- Initial User Tap Overlay -->
   <div id="startOverlay">
     <div class="logo-container">
-      <img src="Gemini_Generated_Image_z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
+      <img src="https://ibb.co/WWNK9qxv" alt="Zaka Sensi Logo">
     </div>
     <h1>Zaka Sensi</h1>
     <button class="btn-action" style="max-width: 250px;" onclick="startApp()">Enter Site</button>
@@ -253,7 +253,7 @@
   <!-- Loading Screen Overlay -->
   <div id="loaderOverlay">
     <div class="logo-container">
-      <img src="Gemini_Generated_Image_z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
+      <img src="https://ibb.co/WWNK9qxv" alt="Zaka Sensi Logo">
     </div>
     <div class="loader-text" id="loaderText">0%</div>
     <div class="loader-bar-bg">
@@ -264,7 +264,7 @@
   <!-- Main Website Container -->
   <div class="container" id="mainContainer">
     <div class="logo-container">
-      <img src="Gemini_Generated_Image_z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
+      <img src="https://ibb.co/WWNK9qxv" alt="Zaka Sensi Logo">
     </div>
 
     <h1>Zaka Sensi</h1>
@@ -342,7 +342,6 @@
       document.getElementById('startOverlay').style.display = 'none';
       document.getElementById('loaderOverlay').style.display = 'flex';
       
-      // Initialize audio context via user interaction
       audio.load();
 
       let progress = 0;
@@ -354,7 +353,6 @@
         fill.style.width = progress + '%';
         text.innerText = progress + '%';
 
-        // Play sound when progress reaches 90%
         if (progress >= 90 && !soundPlayed) {
           soundPlayed = true;
           audio.play().catch(e => console.log('Audio autoplay prevented:', e));
@@ -379,7 +377,6 @@
 
       let general, redDot, scope2, scope4, sniper, freeLook, fireButton;
 
-      // Sensitivity values strictly kept between 100 and 200
       if (ram === '2-3') {
         general = getRandomInt(185, 200);
         redDot = getRandomInt(180, 198);
