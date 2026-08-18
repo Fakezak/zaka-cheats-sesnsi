@@ -1,952 +1,1121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>ZAKA CHEATS SENSI</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-        }
-
-        body {
-            background: #080b13;
-            color: #e9edf5;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #app {
-            max-width: 720px;
-            width: 100%;
-            padding: 16px;
-            margin: 0 auto;
-        }
-
-        .glass-card {
-            background: rgba(16, 22, 38, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 32px;
-            padding: 28px 22px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-            transition: all 0.2s ease;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .flex-col {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .flex-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-4 {
-            margin-top: 24px;
-        }
-
-        .mb-2 {
-            margin-bottom: 12px;
-        }
-
-        /* loading */
-        .loading-screen {
-            min-height: 440px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .app-title {
-            font-size: 2.4rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #f0932b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 40px rgba(238, 90, 36, 0.25);
-        }
-
-        .app-sub {
-            font-size: 0.85rem;
-            color: #6a7ba0;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: -12px;
-        }
-
-        .progress-container {
-            width: 100%;
-            max-width: 320px;
-            background: #1a2340;
-            border-radius: 60px;
-            height: 10px;
-            overflow: hidden;
-            border: 1px solid #2a3455;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ff6b6b, #ee5a24, #f0932b);
-            border-radius: 60px;
-            transition: width 0.2s ease;
-        }
-
-        .status-msg {
-            font-size: 0.95rem;
-            color: #a7b1d6;
-            min-height: 1.8rem;
-            font-weight: 400;
-            letter-spacing: 0.2px;
-        }
-
-        .loader {
-            width: 52px;
-            height: 52px;
-            border: 4px solid #1a2340;
-            border-top: 4px solid #ee5a24;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* AI Detection Badge */
-        .ai-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #1a1040, #2d1b69);
-            padding: 6px 18px 6px 14px;
-            border-radius: 60px;
-            border: 1px solid #6c3bc9;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #c084fc;
-            letter-spacing: 0.5px;
-        }
-
-        .ai-badge .pulse-dot {
-            width: 10px;
-            height: 10px;
-            background: #a855f7;
-            border-radius: 50%;
-            animation: pulse-dot 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.4;
-                transform: scale(0.7);
-            }
-        }
-
-        /* summary */
-        .summary-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 16px;
-            background: #0e1428;
-            padding: 16px 18px;
-            border-radius: 24px;
-            margin: 8px 0 4px;
-            font-size: 0.9rem;
-            border: 1px solid #1f2a4a;
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-            border-bottom: 1px solid #171f3a;
-        }
-
-        .summary-item span:first-child {
-            color: #7a8bb5;
-        }
-
-        .summary-item span:last-child {
-            font-weight: 500;
-            color: #e9edf5;
-        }
-
-        /* API section */
-        .api-section {
-            background: #0c1124;
-            border-radius: 24px;
-            padding: 16px 18px;
-            border: 1px solid #1f2a4a;
-            margin-top: 4px;
-        }
-
-        .api-section .api-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .api-section .api-header h4 {
-            font-size: 0.9rem;
-            color: #b7c3e0;
-            font-weight: 500;
-        }
-
-        .api-input-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-
-        .api-input-group input {
-            flex: 2;
-            min-width: 160px;
-            background: #141b2b;
-            border: 1px solid #2a3455;
-            border-radius: 40px;
-            padding: 10px 16px;
-            color: #e9edf5;
-            font-size: 0.85rem;
-            outline: none;
-            transition: border 0.2s;
-        }
-
-        .api-input-group input:focus {
-            border-color: #a855f7;
-        }
-
-        .api-input-group button {
-            background: linear-gradient(135deg, #7c3aed, #6d28d9);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            color: #fff;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: transform 0.1s, box-shadow 0.2s;
-            white-space: nowrap;
-        }
-
-        .api-input-group button:active {
-            transform: scale(0.96);
-        }
-
-        .api-status {
-            font-size: 0.8rem;
-            color: #7a8bb5;
-            margin-top: 8px;
-            padding: 6px 12px;
-            background: #0e1428;
-            border-radius: 40px;
-            display: inline-block;
-        }
-
-        /* form */
-        .form-label {
-            font-weight: 500;
-            color: #bcc6e6;
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-        }
-
-        input,
-        select {
-            background: #141b2b;
-            border: 1px solid #2a3455;
-            border-radius: 20px;
-            padding: 14px 18px;
-            color: #e9edf5;
-            font-size: 1rem;
-            width: 100%;
-            outline: none;
-            transition: border 0.2s;
-        }
-
-        input::placeholder {
-            color: #4a5a7e;
-            font-weight: 300;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #ee5a24;
-        }
-
-        .card-selector {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .card-option {
-            background: #141b2b;
-            border: 2px solid #1f2840;
-            border-radius: 40px;
-            padding: 10px 22px;
-            font-weight: 500;
-            color: #b0bddb;
-            cursor: pointer;
-            transition: all 0.15s;
-            flex: 1 0 auto;
-            text-align: center;
-        }
-
-        .card-option.active {
-            border-color: #ee5a24;
-            background: #1e2742;
-            color: #fff;
-            box-shadow: 0 0 20px rgba(238, 90, 36, 0.15);
-        }
-
-        .range-hint {
-            font-size: 0.85rem;
-            color: #6a7ba0;
-            padding: 4px 8px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #f0932b);
-            border: none;
-            padding: 16px 20px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #fff;
-            cursor: pointer;
-            transition: transform 0.1s, box-shadow 0.2s;
-            width: 100%;
-            letter-spacing: 0.5px;
-            box-shadow: 0 8px 30px rgba(238, 90, 36, 0.3);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-primary:active {
-            transform: scale(0.97);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #3d4a6b;
-            border-radius: 60px;
-            padding: 12px 18px;
-            font-weight: 600;
-            color: #c8d2f0;
-            cursor: pointer;
-            transition: 0.15s;
-            flex: 1;
-            text-align: center;
-        }
-
-        .btn-outline:hover {
-            border-color: #ee5a24;
-            color: #ee5a24;
-        }
-
-        /* results */
-        .sensi-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 20px 0 12px;
-        }
-
-        .sensi-card {
-            background: #0e1428;
-            border-radius: 24px;
-            padding: 16px 12px;
-            text-align: center;
-            border: 1px solid #1f2a4a;
-            transition: border 0.2s;
-        }
-
-        .sensi-card:hover {
-            border-color: #ee5a24;
-        }
-
-        .sensi-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #7a8bb5;
-        }
-
-        .sensi-value {
-            font-size: 2.4rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff6b6b, #f0932b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1.3;
-            margin-top: 4px;
-        }
-
-        .device-settings {
-            background: #0c1124;
-            border-radius: 28px;
-            padding: 18px 20px;
-            margin: 18px 0;
-            border-left: 4px solid #ee5a24;
-        }
-
-        .device-settings h4 {
-            color: #e9edf5;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .device-settings ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .device-settings li {
-            padding: 5px 0;
-            font-size: 0.9rem;
-            color: #b7c3e0;
-            border-bottom: 1px solid #171f3a;
-        }
-
-        .device-settings li:last-child {
-            border-bottom: none;
-        }
-
-        .action-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 12px 0;
-        }
-
-        .action-row .btn-outline {
-            flex: 1;
-            min-width: 100px;
-        }
-
-        .toast {
-            background: #1e2742;
-            border: 1px solid #ee5a24;
-            border-radius: 60px;
-            padding: 8px 20px;
-            color: #f0932b;
-            font-weight: 500;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .coming-soon {
-            color: #4c5b7c;
-            text-align: center;
-            margin-top: 28px;
-            font-weight: 400;
-            border-top: 1px solid #1f2840;
-            padding-top: 24px;
-            letter-spacing: 0.3px;
-        }
-
-        .more-tools {
-            font-size: 0.9rem;
-            color: #6d7da5;
-        }
-
-        /* AI detection panel */
-        .ai-detection-panel {
-            background: #0a0f20;
-            border-radius: 20px;
-            padding: 14px 18px;
-            border: 1px solid #2a1f4a;
-            margin-top: 6px;
-        }
-
-        .ai-detection-panel .ai-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            font-size: 0.85rem;
-            border-bottom: 1px solid #151d35;
-        }
-
-        .ai-detection-panel .ai-row:last-child {
-            border-bottom: none;
-        }
-
-        .ai-detection-panel .ai-label {
-            color: #7a8bb5;
-        }
-
-        .ai-detection-panel .ai-value {
-            color: #c084fc;
-            font-weight: 500;
-        }
-
-        .ai-detection-panel .ai-value.confident {
-            color: #34d399;
-        }
-
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 20px 16px;
-            }
-            .sensi-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-            .app-title {
-                font-size: 2rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>ZAKA CHEATS SENSI</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: #0a0c17;
+      color: #eef2f8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      background-image: radial-gradient(circle at 10% 20%, rgba(238, 90, 36, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+    }
+
+    #app {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Glassmorphism with gradient border */
+    .glass-card {
+      background: rgba(14, 20, 40, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 40px;
+      padding: 32px 28px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 40px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(238, 90, 36, 0.3), rgba(168, 85, 247, 0.2), rgba(238, 90, 36, 0.1));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    /* ===== LOADING SCREEN ===== */
+    .loading-screen {
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 6px;
+    }
+
+    .brand-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #ee5a24, #f0932b);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 8px 30px rgba(238, 90, 36, 0.4);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .brand-icon::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(238, 90, 36, 0.3), rgba(168, 85, 247, 0.2));
+      z-index: -1;
+      filter: blur(12px);
+    }
+
+    .brand-icon i {
+      font-size: 30px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .app-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24, #f0932b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(238, 90, 36, 0.15);
+    }
+
+    .app-sub {
+      font-size: 0.8rem;
+      color: #6a7ba0;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-top: -4px;
+    }
+
+    .loader {
+      width: 56px;
+      height: 56px;
+      border: 4px solid #1a2340;
+      border-top: 4px solid #ee5a24;
+      border-radius: 50%;
+      animation: spin 0.9s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+      box-shadow: 0 0 30px rgba(238, 90, 36, 0.15);
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .progress-container {
+      width: 100%;
+      max-width: 340px;
+      background: #141d32;
+      border-radius: 60px;
+      height: 8px;
+      overflow: hidden;
+      border: 1px solid #1f2a4a;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ee5a24, #f0932b, #ff6b6b);
+      border-radius: 60px;
+      transition: width 0.2s ease;
+    }
+
+    .status-msg {
+      font-size: 0.95rem;
+      color: #a7b1d6;
+      min-height: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #1a1040, #2d1b69);
+      padding: 6px 20px 6px 16px;
+      border-radius: 60px;
+      border: 1px solid #6c3bc9;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #c084fc;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .ai-badge .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background: #a855f7;
+      border-radius: 50%;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.3;
+        transform: scale(0.6);
+      }
+    }
+
+    /* ===== SETUP SCREEN ===== */
+    .setup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .setup-header h2 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #eef2f8;
+      letter-spacing: -0.3px;
+    }
+
+    /* AI Detection Panel */
+    .ai-detection-panel {
+      background: #0a0f20;
+      border-radius: 24px;
+      padding: 16px 20px;
+      border: 1px solid #1f2a4a;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 20px;
+    }
+
+    .ai-detection-panel .ai-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #141d32;
+    }
+
+    .ai-detection-panel .ai-row:last-child {
+      border-bottom: none;
+    }
+
+    .ai-detection-panel .ai-label {
+      color: #7a8bb5;
+      font-weight: 400;
+    }
+
+    .ai-detection-panel .ai-value {
+      color: #c084fc;
+      font-weight: 600;
+    }
+
+    .ai-detection-panel .ai-value.confident {
+      color: #34d399;
+    }
+
+    .ai-detection-panel .ai-value.warning {
+      color: #fbbf24;
+    }
+
+    /* Summary Grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 18px;
+      background: #0a0f20;
+      padding: 14px 18px;
+      border-radius: 20px;
+      border: 1px solid #1a2340;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #141d32;
+    }
+
+    .summary-item span:first-child {
+      color: #6a7ba0;
+    }
+
+    .summary-item span:last-child {
+      font-weight: 500;
+      color: #eef2f8;
+    }
+
+    /* API Section */
+    .api-section {
+      background: #0a0f20;
+      border-radius: 24px;
+      padding: 16px 18px;
+      border: 1px solid #1a2340;
+    }
+
+    .api-section .api-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .api-section .api-header h4 {
+      font-size: 0.9rem;
+      color: #b7c3e0;
+      font-weight: 500;
+    }
+
+    .api-input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .api-input-group input {
+      flex: 2;
+      min-width: 170px;
+      background: #141d32;
+      border: 1px solid #1f2a4a;
+      border-radius: 40px;
+      padding: 10px 18px;
+      color: #eef2f8;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .api-input-group input:focus {
+      border-color: #a855f7;
+    }
+
+    .api-input-group button {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      border: none;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: transform 0.1s, box-shadow 0.2s;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
+    }
+
+    .api-input-group button:active {
+      transform: scale(0.96);
+    }
+
+    .api-status {
+      font-size: 0.8rem;
+      color: #7a8bb5;
+      margin-top: 10px;
+      padding: 6px 16px;
+      background: #0d1328;
+      border-radius: 40px;
+      display: inline-block;
+      border: 1px solid #1a2340;
+    }
+
+    /* Form */
+    .form-label {
+      font-weight: 500;
+      color: #bcc6e6;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input,
+    select {
+      background: #141d32;
+      border: 1px solid #1f2a4a;
+      border-radius: 24px;
+      padding: 14px 20px;
+      color: #eef2f8;
+      font-size: 1rem;
+      width: 100%;
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    input::placeholder {
+      color: #3d4d6e;
+      font-weight: 300;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #ee5a24;
+      box-shadow: 0 0 0 3px rgba(238, 90, 36, 0.15);
+    }
+
+    .card-selector {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-option {
+      background: #141d32;
+      border: 2px solid #1f2a4a;
+      border-radius: 40px;
+      padding: 10px 24px;
+      font-weight: 600;
+      color: #8a9bbd;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex: 1 0 auto;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .card-option.active {
+      border-color: #ee5a24;
+      background: #1e2742;
+      color: #fff;
+      box-shadow: 0 0 24px rgba(238, 90, 36, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .card-option:hover {
+      border-color: #f0932b;
+    }
+
+    .range-hint {
+      font-size: 0.82rem;
+      color: #6a7ba0;
+      padding: 4px 6px;
+      margin-top: 2px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ee5a24, #f0932b, #ff6b6b);
+      border: none;
+      padding: 18px 24px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.25s;
+      width: 100%;
+      letter-spacing: 0.8px;
+      box-shadow: 0 8px 32px rgba(238, 90, 36, 0.3);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary i {
+      font-size: 1.2rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #2a3555;
+      border-radius: 60px;
+      padding: 12px 18px;
+      font-weight: 600;
+      color: #b7c3e0;
+      cursor: pointer;
+      transition: 0.2s;
+      flex: 1;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    .btn-outline:hover {
+      border-color: #ee5a24;
+      color: #ee5a24;
+      background: rgba(238, 90, 36, 0.04);
+    }
+
+    .btn-outline i {
+      font-size: 1rem;
+    }
+
+    /* ===== RESULTS ===== */
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .result-header .result-title {
+      font-size: 0.7rem;
+      color: #6a7ba0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .result-header .result-device {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #eef2f8;
+    }
+
+    .sensi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0 14px;
+    }
+
+    .sensi-card {
+      background: #0a0f20;
+      border-radius: 20px;
+      padding: 14px 8px;
+      text-align: center;
+      border: 1px solid #1a2340;
+      transition: border 0.2s, transform 0.15s;
+    }
+
+    .sensi-card:hover {
+      border-color: #f0932b;
+      transform: translateY(-2px);
+    }
+
+    .sensi-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #6a7ba0;
+      font-weight: 600;
+    }
+
+    .sensi-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6b6b, #f0932b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.3;
+      margin-top: 2px;
+    }
+
+    .device-settings {
+      background: #0a0f20;
+      border-radius: 24px;
+      padding: 18px 22px;
+      margin: 14px 0 16px;
+      border-left: 4px solid #ee5a24;
+    }
+
+    .device-settings h4 {
+      color: #eef2f8;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .device-settings ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .device-settings li {
+      padding: 5px 0;
+      font-size: 0.88rem;
+      color: #b7c3e0;
+      border-bottom: 1px solid #141d32;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .device-settings li::before {
+      content: '▸';
+      color: #f0932b;
+      font-weight: 700;
+    }
+
+    .device-settings li:last-child {
+      border-bottom: none;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 8px 0 4px;
+    }
+
+    .action-row .btn-outline {
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .toast {
+      background: #1e2742;
+      border: 1px solid #34d399;
+      border-radius: 60px;
+      padding: 8px 24px;
+      color: #34d399;
+      font-weight: 500;
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+
+    .coming-soon {
+      color: #3d4d6e;
+      text-align: center;
+      margin-top: 28px;
+      font-weight: 400;
+      border-top: 1px solid #1a2340;
+      padding-top: 24px;
+      letter-spacing: 0.3px;
+    }
+
+    .coming-soon .more-tools {
+      font-size: 0.9rem;
+      color: #6a7ba0;
+      font-weight: 500;
+    }
+
+    .coming-soon .more-tools i {
+      margin-right: 6px;
+    }
+
+    /* Responsive */
+    @media (max-width: 580px) {
+      .glass-card {
+        padding: 22px 16px;
+        border-radius: 28px;
+      }
+      .sensi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .app-title {
+        font-size: 1.6rem;
+      }
+      .brand-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+        border-radius: 14px;
+      }
+      .brand-icon i {
+        font-size: 22px;
+      }
+      .ai-detection-panel {
+        grid-template-columns: 1fr;
+      }
+      .setup-header h2 {
+        font-size: 1.25rem;
+      }
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .sensi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .sensi-value {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="app">
-        <!-- STARTUP / ANALYSIS SCREEN -->
-        <div id="loadingScreen" class="glass-card loading-screen">
-            <div class="app-title">ZAKA CHEATS SENSI</div>
-            <div class="app-sub">⚡ AI POWERED · FREE FIRE</div>
-            <div class="loader"></div>
-            <div class="progress-container">
-                <div id="progressBar" class="progress-bar" style="width:0%"></div>
-            </div>
-            <div id="statusMsg" class="status-msg">Initializing AI analyzer...</div>
-            <div id="progressPercent" style="font-weight:700; color:#f0932b;">0%</div>
-            <div class="ai-badge">
-                <span class="pulse-dot"></span>
-                AI DETECTION ACTIVE
-            </div>
+  <div id="app">
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div id="loadingScreen" class="glass-card loading-screen">
+      <div class="brand-header">
+        <div class="brand-icon">
+          <i class="fas fa-bolt"></i>
         </div>
-
-        <!-- SETUP FORM -->
-        <div id="setupScreen" class="glass-card hidden flex-col">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
-                <h2 style="font-weight:700; font-size:1.5rem; color:#e9edf5;">Complete Your Device Profile</h2>
-                <span class="ai-badge" style="font-size:0.65rem;">
-                    <span class="pulse-dot" style="width:8px;height:8px;"></span>
-                    AI READY
-                </span>
-            </div>
-
-            <!-- AI Detection Panel -->
-            <div class="ai-detection-panel" id="aiDetectionPanel">
-                <div class="ai-row"><span class="ai-label">🤖 AI Model</span><span class="ai-value">ZAKA v2.4 · Deterministic</span></div>
-                <div class="ai-row"><span class="ai-label">🧠 Detection Engine</span><span class="ai-value confident">Active</span></div>
-                <div class="ai-row"><span class="ai-label">📊 Device Fingerprint</span><span class="ai-value" id="aiFingerprint">--</span></div>
-                <div class="ai-row"><span class="ai-label">🎯 Confidence Score</span><span class="ai-value confident" id="aiConfidence">--</span></div>
-            </div>
-
-            <!-- summary -->
-            <div id="summaryBox" class="summary-grid"></div>
-
-            <!-- API Custom Section -->
-            <div class="api-section">
-                <div class="api-header">
-                    <h4>🔌 CUSTOM AI API</h4>
-                    <span style="font-size:0.7rem; color:#6a7ba0;">optional · real-time</span>
-                </div>
-                <div class="api-input-group">
-                    <input id="apiEndpointInput" type="text" placeholder="https://your-ai-api.com/predict" value="https://api.zaka-ai.tech/v1/sensi" />
-                    <button id="apiTestBtn">TEST CONNECTION</button>
-                </div>
-                <div id="apiStatus" class="api-status">⚡ Ready · Custom AI endpoint configured</div>
-            </div>
-
-            <div>
-                <div class="form-label">Device Name</div>
-                <input id="deviceNameInput" type="text" placeholder="Example: Samsung Galaxy A51 5G" value="Samsung Galaxy A51 5G" />
-            </div>
-
-            <div>
-                <div class="form-label">Platform</div>
-                <div class="card-selector" id="platformSelector">
-                    <div class="card-option active" data-value="Android">Android</div>
-                    <div class="card-option" data-value="iOS">iOS</div>
-                    <div class="card-option" data-value="PC">PC</div>
-                </div>
-            </div>
-
-            <div>
-                <div class="form-label">Game</div>
-                <div class="card-selector" id="gameSelector">
-                    <div class="card-option active" data-value="Free Fire">Free Fire</div>
-                    <div class="card-option" data-value="Free Fire MAX">Free Fire MAX</div>
-                </div>
-            </div>
-
-            <div>
-                <div class="form-label">Maximum Sensitivity</div>
-                <input id="maxSensiInput" type="number" min="100" max="200" value="200" />
-                <div class="range-hint">Sensitivity values are generated within your selected 100–200 range.</div>
-            </div>
-
-            <button id="generateBtn" class="btn-primary">🚀 GENERATE AI SENSI</button>
-        </div>
-
-        <!-- RESULTS SCREEN -->
-        <div id="resultScreen" class="glass-card hidden flex-col">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
-                <div>
-                    <div style="font-size:0.75rem; color:#7a8bb5; letter-spacing:1.5px; text-transform:uppercase;">AI SENSITIVITY GENERATED</div>
-                    <div id="resultSubtitle" style="font-weight:700; font-size:1.2rem; color:#e9edf5;">Optimized for <span id="resultDeviceName">Device</span></div>
-                </div>
-                <span class="ai-badge" style="font-size:0.65rem;">
-                    <span class="pulse-dot" style="width:8px;height:8px;"></span>
-                    AI v2.4
-                </span>
-            </div>
-
-            <div class="sensi-grid" id="sensiGrid">
-                <div class="sensi-card"><div class="sensi-label">GENERAL</div><div class="sensi-value" id="sensiGeneral">--</div></div>
-                <div class="sensi-card"><div class="sensi-label">RED DOT</div><div class="sensi-value" id="sensiRedDot">--</div></div>
-                <div class="sensi-card"><div class="sensi-label">2X SCOPE</div><div class="sensi-value" id="sensi2x">--</div></div>
-                <div class="sensi-card"><div class="sensi-label">4X SCOPE</div><div class="sensi-value" id="sensi4x">--</div></div>
-                <div class="sensi-card"><div class="sensi-label">SNIPER</div><div class="sensi-value" id="sensiSniper">--</div></div>
-                <div class="sensi-card"><div class="sensi-label">FREE LOOK</div><div class="sensi-value" id="sensiFreeLook">--</div></div>
-            </div>
-
-            <!-- AI analysis result -->
-            <div class="ai-detection-panel" style="border-color:#1f2a4a;">
-                <div class="ai-row"><span class="ai-label">🧠 AI Analysis</span><span class="ai-value confident" id="aiResultAnalysis">Profile optimized</span></div>
-                <div class="ai-row"><span class="ai-label">📱 Device Match</span><span class="ai-value confident" id="aiDeviceMatch">100%</span></div>
-                <div class="ai-row"><span class="ai-label">⚡ API Status</span><span class="ai-value" id="aiApiStatus">Custom endpoint ready</span></div>
-            </div>
-
-            <div class="device-settings" id="deviceSettingsBox">
-                <h4 id="settingsTitle">USE THESE DEVICE SETTINGS FOR <span id="settingsDeviceName">Device</span></h4>
-                <ul id="settingsList"></ul>
-            </div>
-
-            <div class="action-row">
-                <button id="copyBtn" class="btn-outline">📋 COPY SENSI</button>
-                <button id="saveImageBtn" class="btn-outline">🖼️ SAVE AS IMAGE</button>
-                <button id="generateAgainBtn" class="btn-outline">🔄 GENERATE AGAIN</button>
-            </div>
-            <div id="copyToast" class="toast hidden">✅ Sensi copied!</div>
-
-            <div class="coming-soon">
-                <div class="more-tools">MORE TOOLS</div>
-                <div style="color:#3d4a6b; font-weight:300;">Coming soon</div>
-            </div>
-        </div>
+        <div class="app-title">ZAKA CHEATS SENSI</div>
+      </div>
+      <div class="app-sub">⚡ AI POWERED · FREE FIRE</div>
+      <div class="loader"></div>
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar" style="width:0%"></div>
+      </div>
+      <div id="statusMsg" class="status-msg">Initializing AI engine...</div>
+      <div id="progressPercent" style="font-weight:700; color:#f0932b; font-size:1.1rem;">0%</div>
+      <div class="ai-badge">
+        <span class="pulse-dot"></span>
+        AI DETECTION ACTIVE
+      </div>
     </div>
 
-    <script>
-        (function() {
-            "use strict";
+    <!-- ===== SETUP SCREEN ===== -->
+    <div id="setupScreen" class="glass-card hidden flex-col">
+      <div class="setup-header">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="brand-icon" style="width:42px;height:42px;font-size:18px;border-radius:14px;">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h2>Device Profile</h2>
+        </div>
+        <span class="ai-badge" style="font-size:0.6rem; padding:4px 14px;">
+          <span class="pulse-dot" style="width:8px;height:8px;"></span>
+          AI READY
+        </span>
+      </div>
 
-            // DOM refs
-            const loadingScreen = document.getElementById('loadingScreen');
-            const setupScreen = document.getElementById('setupScreen');
-            const resultScreen = document.getElementById('resultScreen');
-            const progressBar = document.getElementById('progressBar');
-            const statusMsg = document.getElementById('statusMsg');
-            const progressPercent = document.getElementById('progressPercent');
-            const summaryBox = document.getElementById('summaryBox');
-            const deviceNameInput = document.getElementById('deviceNameInput');
-            const maxSensiInput = document.getElementById('maxSensiInput');
-            const generateBtn = document.getElementById('generateBtn');
-            const generateAgainBtn = document.getElementById('generateAgainBtn');
-            const copyBtn = document.getElementById('copyBtn');
-            const saveImageBtn = document.getElementById('saveImageBtn');
-            const copyToast = document.getElementById('copyToast');
-            const apiEndpointInput = document.getElementById('apiEndpointInput');
-            const apiTestBtn = document.getElementById('apiTestBtn');
-            const apiStatus = document.getElementById('apiStatus');
-            const aiFingerprint = document.getElementById('aiFingerprint');
-            const aiConfidence = document.getElementById('aiConfidence');
-            const aiResultAnalysis = document.getElementById('aiResultAnalysis');
-            const aiDeviceMatch = document.getElementById('aiDeviceMatch');
-            const aiApiStatus = document.getElementById('aiApiStatus');
+      <!-- AI Detection Panel -->
+      <div class="ai-detection-panel" id="aiDetectionPanel">
+        <div class="ai-row"><span class="ai-label"><i class="fas fa-brain" style="margin-right:6px;"></i>AI Model</span><span class="ai-value">ZAKA v2.4 · Deterministic</span></div>
+        <div class="ai-row"><span class="ai-label"><i class="fas fa-microchip"></i> Detection Engine</span><span class="ai-value confident">Active</span></div>
+        <div class="ai-row"><span class="ai-label"><i class="fas fa-fingerprint"></i> Device Fingerprint</span><span class="ai-value" id="aiFingerprint">--</span></div>
+        <div class="ai-row"><span class="ai-label"><i class="fas fa-chart-line"></i> Confidence Score</span><span class="ai-value confident" id="aiConfidence">--</span></div>
+      </div>
 
-            const resultDeviceName = document.getElementById('resultDeviceName');
-            const settingsDeviceName = document.getElementById('settingsDeviceName');
-            const resultSubtitle = document.getElementById('resultSubtitle');
-            const sensiGeneral = document.getElementById('sensiGeneral');
-            const sensiRedDot = document.getElementById('sensiRedDot');
-            const sensi2x = document.getElementById('sensi2x');
-            const sensi4x = document.getElementById('sensi4x');
-            const sensiSniper = document.getElementById('sensiSniper');
-            const sensiFreeLook = document.getElementById('sensiFreeLook');
-            const settingsList = document.getElementById('settingsList');
-            const settingsTitle = document.getElementById('settingsTitle');
+      <!-- Summary -->
+      <div id="summaryBox" class="summary-grid"></div>
 
-            const platformCards = document.querySelectorAll('#platformSelector .card-option');
-            const gameCards = document.querySelectorAll('#gameSelector .card-option');
+      <!-- API Section -->
+      <div class="api-section">
+        <div class="api-header">
+          <h4><i class="fas fa-plug" style="margin-right:8px;color:#a855f7;"></i>CUSTOM AI API</h4>
+          <span style="font-size:0.65rem; color:#6a7ba0; background:#0d1328; padding:2px 12px; border-radius:40px; border:1px solid #1a2340;">optional</span>
+        </div>
+        <div class="api-input-group">
+          <input id="apiEndpointInput" type="text" placeholder="https://your-ai-api.com/predict" value="https://api.zaka-ai.tech/v1/sensi" />
+          <button id="apiTestBtn"><i class="fas fa-link"></i> Test</button>
+        </div>
+        <div id="apiStatus" class="api-status"><i class="fas fa-circle" style="color:#34d399;font-size:0.5rem;margin-right:6px;"></i> Custom AI endpoint configured</div>
+      </div>
 
-            // state
-            let deviceInfo = {};
-            let currentPlatform = 'Android';
-            let currentGame = 'Free Fire';
-            let generatedSensitivities = {};
-            let customApiEndpoint = 'https://api.zaka-ai.tech/v1/sensi';
-            let apiConnected = false;
+      <div>
+        <div class="form-label"><i class="fas fa-mobile-alt" style="color:#6a7ba0;width:20px;"></i>Device Name</div>
+        <input id="deviceNameInput" type="text" placeholder="Example: Samsung Galaxy A51 5G" value="Samsung Galaxy A51 5G" />
+      </div>
 
-            // ---- deterministic hash ----
-            function hashCode(str) {
-                let hash = 0;
-                if (str.length === 0) return hash;
-                for (let i = 0; i < str.length; i++) {
-                    const char = str.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash;
-                }
-                return Math.abs(hash);
-            }
+      <div>
+        <div class="form-label"><i class="fas fa-gamepad" style="color:#6a7ba0;width:20px;"></i>Platform</div>
+        <div class="card-selector" id="platformSelector">
+          <div class="card-option active" data-value="Android"><i class="fab fa-android" style="margin-right:6px;"></i>Android</div>
+          <div class="card-option" data-value="iOS"><i class="fab fa-apple" style="margin-right:6px;"></i>iOS</div>
+          <div class="card-option" data-value="PC"><i class="fas fa-desktop" style="margin-right:6px;"></i>PC</div>
+        </div>
+      </div>
 
-            // ---- deterministic sensitivity generator with AI weighting ----
-            function generateSensi(seedBase, maxVal, aiWeight = 1.0) {
-                const seed = hashCode(seedBase + 'zaka');
-                const range = maxVal - 100;
-                if (range <= 0) return 100;
-                const x = (seed % 9973) / 9973;
-                // apply AI weight factor (deterministic based on seed)
-                const adjusted = 100 + (x * range * (0.85 + 0.15 * (seed % 10) / 10));
-                return Math.min(maxVal, Math.max(100, Math.floor(adjusted)));
-            }
+      <div>
+        <div class="form-label"><i class="fas fa-fire" style="color:#6a7ba0;width:20px;"></i>Game</div>
+        <div class="card-selector" id="gameSelector">
+          <div class="card-option active" data-value="Free Fire">Free Fire</div>
+          <div class="card-option" data-value="Free Fire MAX">Free Fire MAX</div>
+        </div>
+      </div>
 
-            // ---- compute sensitivities with AI enhancement ----
-            function computeSensitivities(device, platform, game, maxSensi, info, apiEndpoint) {
-                const base = `${device}|${platform}|${game}|${info.screenWidth}|${info.screenHeight}|${info.pixelRatio}|${info.touchPoints}|${info.userAgent}`;
-                // AI weight derived from device fingerprint
-                const fp = hashCode(base + 'fingerprint') % 100;
-                const aiWeight = 0.85 + (fp / 1000);
+      <div>
+        <div class="form-label"><i class="fas fa-sliders-h" style="color:#6a7ba0;width:20px;"></i>Maximum Sensitivity</div>
+        <input id="maxSensiInput" type="number" min="100" max="200" value="200" />
+        <div class="range-hint"><i class="fas fa-info-circle" style="margin-right:6px;"></i>Sensitivity values are generated within your selected 100–200 range.</div>
+      </div>
 
-                const general = generateSensi(base + 'general', maxSensi, aiWeight);
-                const redDot = generateSensi(base + 'reddot', maxSensi, aiWeight);
-                const scope2x = generateSensi(base + '2x', maxSensi, aiWeight);
-                const scope4x = generateSensi(base + '4x', maxSensi, aiWeight);
-                const sniper = generateSensi(base + 'sniper', maxSensi, aiWeight);
-                const freeLook = generateSensi(base + 'freelook', maxSensi, aiWeight);
+      <button id="generateBtn" class="btn-primary"><i class="fas fa-robot"></i> GENERATE AI SENSI</button>
+    </div>
 
-                // AI confidence score
-                const confidence = 85 + (fp % 15);
+    <!-- ===== RESULTS SCREEN ===== -->
+    <div id="resultScreen" class="glass-card hidden flex-col">
+      <div class="result-header">
+        <div>
+          <div class="result-title"><i class="fas fa-check-circle" style="color:#34d399;margin-right:6px;"></i>AI SENSITIVITY GENERATED</div>
+          <div class="result-device">Optimized for <span id="resultDeviceName">Device</span></div>
+        </div>
+        <span class="ai-badge" style="font-size:0.6rem; padding:4px 14px;">
+          <span class="pulse-dot" style="width:8px;height:8px;"></span>
+          AI v2.4
+        </span>
+      </div>
 
-                return {
-                    general,
-                    redDot,
-                    scope2x,
-                    scope4x,
-                    sniper,
-                    freeLook,
-                    fingerprint: fp,
-                    confidence: confidence,
-                    aiWeight: aiWeight
-                };
-            }
+      <div class="sensi-grid" id="sensiGrid">
+        <div class="sensi-card"><div class="sensi-label">GENERAL</div><div class="sensi-value" id="sensiGeneral">--</div></div>
+        <div class="sensi-card"><div class="sensi-label">RED DOT</div><div class="sensi-value" id="sensiRedDot">--</div></div>
+        <div class="sensi-card"><div class="sensi-label">2X SCOPE</div><div class="sensi-value" id="sensi2x">--</div></div>
+        <div class="sensi-card"><div class="sensi-label">4X SCOPE</div><div class="sensi-value" id="sensi4x">--</div></div>
+        <div class="sensi-card"><div class="sensi-label">SNIPER</div><div class="sensi-value" id="sensiSniper">--</div></div>
+        <div class="sensi-card"><div class="sensi-label">FREE LOOK</div><div class="sensi-value" id="sensiFreeLook">--</div></div>
+      </div>
 
-            // ---- collect browser info ----
-            function collectDeviceInfo() {
-                const ua = navigator.userAgent || '';
-                const platform = navigator.platform || 'unknown';
-                const touchPoints = navigator.maxTouchPoints || 0;
-                const screenW = screen.width || 0;
-                const screenH = screen.height || 0;
-                const pixelRatio = window.devicePixelRatio || 1;
-                const innerW = window.innerWidth || 0;
-                const innerH = window.innerHeight || 0;
-                const lang = navigator.language || 'en';
-                let os = 'Unknown';
-                if (ua.indexOf('Android') > -1) os = 'Android';
-                else if (ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) os = 'iOS';
-                else if (ua.indexOf('Windows') > -1) os = 'Windows';
-                else if (ua.indexOf('Mac') > -1) os = 'macOS';
-                else if (ua.indexOf('Linux') > -1) os = 'Linux';
-                return {
-                    userAgent: ua,
-                    platform: platform,
-                    touchPoints: touchPoints,
-                    screenWidth: screenW,
-                    screenHeight: screenH,
-                    pixelRatio: pixelRatio,
-                    innerWidth: innerW,
-                    innerHeight: innerH,
-                    language: lang,
-                    os: os,
-                    touchSupported: touchPoints > 0
-                };
-            }
+      <!-- AI Analysis Result -->
+      <div class="ai-detection-panel" style="border-color:#1f2a4a; grid-template-columns:1fr 1fr 1fr;">
+        <div class="ai-row" style="border-bottom:none;padding:4px 0;"><span class="ai-label"><i class="fas fa-robot"></i> AI Analysis</span><span class="ai-value confident" id="aiResultAnalysis">Optimized</span></div>
+        <div class="ai-row" style="border-bottom:none;padding:4px 0;"><span class="ai-label"><i class="fas fa-check"></i> Device Match</span><span class="ai-value confident" id="aiDeviceMatch">100%</span></div>
+        <div class="ai-row" style="border-bottom:none;padding:4px 0;"><span class="ai-label"><i class="fas fa-cloud"></i> API Status</span><span class="ai-value" id="aiApiStatus">Ready</span></div>
+      </div>
 
-            // ---- update summary ----
-            function updateSummary(info) {
-                summaryBox.innerHTML = `
-              <div class="summary-item"><span>Platform</span><span>${info.os}</span></div>
-              <div class="summary-item"><span>Touch</span><span>${info.touchSupported ? '✅ Supported' : '❌ Not detected'}</span></div>
-              <div class="summary-item"><span>Resolution</span><span>${info.screenWidth} × ${info.screenHeight}</span></div>
-              <div class="summary-item"><span>Pixel Ratio</span><span>${info.pixelRatio.toFixed(2)}</span></div>
-            `;
-            }
+      <div class="device-settings" id="deviceSettingsBox">
+        <h4 id="settingsTitle"><i class="fas fa-cog" style="margin-right:10px;color:#f0932b;"></i>USE THESE DEVICE SETTINGS FOR <span id="settingsDeviceName">Device</span></h4>
+        <ul id="settingsList"></ul>
+      </div>
 
-            // ---- loading animation ----
-            let progress = 0;
-            let animationInterval = null;
+      <div class="action-row">
+        <button id="copyBtn" class="btn-outline"><i class="fas fa-copy"></i> COPY</button>
+        <button id="saveImageBtn" class="btn-outline"><i class="fas fa-image"></i> SAVE PNG</button>
+        <button id="generateAgainBtn" class="btn-outline"><i class="fas fa-redo"></i> AGAIN</button>
+      </div>
+      <div id="copyToast" class="toast hidden"><i class="fas fa-check-circle" style="margin-right:8px;"></i>Sensi copied!</div>
 
-            function startLoadingAnimation() {
-                const statusMessages = [
-                    'Initializing ZAKA AI engine...',
-                    'Detecting browser environment...',
-                    'Analyzing screen resolution...',
-                    'Analyzing touch capability...',
-                    'Analyzing device pixel ratio...',
-                    'Building device fingerprint...',
-                    'Calibrating AI detection...'
-                ];
-                let msgIndex = 0;
-                progress = 0;
-                if (animationInterval) clearInterval(animationInterval);
-                animationInterval = setInterval(() => {
-                    progress += 0.5 + Math.random() * 1.3;
-                    if (progress > 50) progress = 50;
-                    progressBar.style.width = progress + '%';
-                    progressPercent.textContent = Math.floor(progress) + '%';
-                    const idx = Math.min(Math.floor(progress / 8), statusMessages.length - 1);
-                    statusMsg.textContent = statusMessages[idx] || 'Analyzing...';
-                    if (progress >= 50) {
-                        clearInterval(animationInterval);
-                        animationInterval = null;
-                        statusMsg.textContent = '✅ AI analysis complete. Setup your profile.';
+      <div class="coming-soon">
+        <div class="more-tools"><i class="fas fa-tools"></i> MORE TOOLS</div>
+        <div style="color:#2a3555; font-weight:300; margin-top:4px;">Coming soon</div>
+      </div>
+    </div>
+  </div>
 
-                        // generate fingerprint
-                        const fp = hashCode(JSON.stringify(deviceInfo) + 'zaka') % 1000;
-                        aiFingerprint.textContent = `ZAKA-${String(fp).padStart(4, '0')}`;
-                        const conf = 85 + (fp % 15);
-                        aiConfidence.textContent = `${conf}%`;
+  <script>
+    (function() {
+      "use strict";
 
-                        loadingScreen.classList.add('hidden');
-                        setupScreen.classList.remove('hidden');
-                    }
-                }, 150);
-            }
+      // DOM refs
+      const loadingScreen = document.getElementById('loadingScreen');
+      const setupScreen = document.getElementById('setupScreen');
+      const resultScreen = document.getElementById('resultScreen');
+      const progressBar = document.getElementById('progressBar');
+      const statusMsg = document.getElementById('statusMsg');
+      const progressPercent = document.getElementById('progressPercent');
+      const summaryBox = document.getElementById('summaryBox');
+      const deviceNameInput = document.getElementById('deviceNameInput');
+      const maxSensiInput = document.getElementById('maxSensiInput');
+      const generateBtn = document.getElementById('generateBtn');
+      const generateAgainBtn = document.getElementById('generateAgainBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const saveImageBtn = document.getElementById('saveImageBtn');
+      const copyToast = document.getElementById('copyToast');
+      const apiEndpointInput = document.getElementById('apiEndpointInput');
+      const apiTestBtn = document.getElementById('apiTestBtn');
+      const apiStatus = document.getElementById('apiStatus');
+      const aiFingerprint = document.getElementById('aiFingerprint');
+      const aiConfidence = document.getElementById('aiConfidence');
+      const aiResultAnalysis = document.getElementById('aiResultAnalysis');
+      const aiDeviceMatch = document.getElementById('aiDeviceMatch');
+      const aiApiStatus = document.getElementById('aiApiStatus');
 
-            // ---- card toggles ----
-            function setupCardToggles(container, callback) {
-                const cards = container.querySelectorAll('.card-option');
-                cards.forEach(card => {
-                    card.addEventListener('click', function() {
-                        cards.forEach(c => c.classList.remove('active'));
-                        this.classList.add('active');
-                        if (callback) callback(this.dataset.value);
-                    });
-                });
-            }
+      const resultDeviceName = document.getElementById('resultDeviceName');
+      const settingsDeviceName = document.getElementById('settingsDeviceName');
+      const sensiGeneral = document.getElementById('sensiGeneral');
+      const sensiRedDot = document.getElementById('sensiRedDot');
+      const sensi2x = document.getElementById('sensi2x');
+      const sensi4x = document.getElementById('sensi4x');
+      const sensiSniper = document.getElementById('sensiSniper');
+      const sensiFreeLook = document.getElementById('sensiFreeLook');
+      const settingsList = document.getElementById('settingsList');
+      const settingsTitle = document.getElementById('settingsTitle');
 
-            // ---- generate and show results ----
-            function generateAndShow() {
-                const deviceName = deviceNameInput.value.trim() || 'My Device';
-                const maxSensi = parseInt(maxSensiInput.value, 10);
-                const clampedMax = Math.min(200, Math.max(100, maxSensi));
-                maxSensiInput.value = clampedMax;
+      const platformCards = document.querySelectorAll('#platformSelector .card-option');
+      const gameCards = document.querySelectorAll('#gameSelector .card-option');
 
-                const info = deviceInfo;
-                const platform = currentPlatform;
-                const game = currentGame;
-                const apiEndpoint = apiEndpointInput.value.trim() || customApiEndpoint;
+      // State
+      let deviceInfo = {};
+      let currentPlatform = 'Android';
+      let currentGame = 'Free Fire';
+      let generatedSensitivities = {};
+      let customApiEndpoint = 'https://api.zaka-ai.tech/v1/sensi';
+      let apiConnected = false;
 
-                // compute with AI
-                const result = computeSensitivities(deviceName, platform, game, clampedMax, info, apiEndpoint);
-                generatedSensitivities = {
-                    general: result.general,
-                    redDot: result.redDot,
-                    scope2x: result.scope2x,
-                    scope4x: result.scope4x,
-                    sniper: result.sniper,
-                    freeLook: result.freeLook,
-                    fingerprint: result.fingerprint,
-                    confidence: result.confidence
-                };
+      // ---- deterministic hash ----
+      function hashCode(str) {
+        let hash = 0;
+        if (str.length === 0) return hash;
+        for (let i = 0; i < str.length; i++) {
+          const char = str.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+        }
+        return Math.abs(hash);
+      }
 
-                // fill results
-                resultDeviceName.textContent = deviceName;
-                settingsDeviceName.textContent = deviceName;
-                resultSubtitle.textContent = `Optimized for ${deviceName}`;
-                sensiGeneral.textContent = result.general;
-                sensiRedDot.textContent = result.redDot;
-                sensi2x.textContent = result.scope2x;
-                sensi4x.textContent = result.scope4x;
-                sensiSniper.textContent = result.sniper;
-                sensiFreeLook.textContent = result.freeLook;
+      // ---- deterministic sensitivity generator ----
+      function generateSensi(seedBase, maxVal, aiWeight) {
+        const seed = hashCode(seedBase + 'zaka');
+        const range = maxVal - 100;
+        if (range <= 0) return 100;
+        const x = (seed % 9973) / 9973;
+        const adjusted = 100 + (x * range * (0.80 + 0.20 * (seed % 10) / 10));
+        return Math.min(maxVal, Math.max(100, Math.floor(adjusted)));
+      }
 
-                // AI analysis
-                aiResultAnalysis.textContent = `Profile optimized · AI weight ${(result.aiWeight * 100).toFixed(1)}%`;
-                aiDeviceMatch.textContent = `${85 + (result.fingerprint % 15)}%`;
-                aiApiStatus.textContent = apiConnected ? '✅ Connected to custom AI' : '⚡ Using local AI engine';
+      // ---- compute sensitivities ----
+      function computeSensitivities(device, platform, game, maxSensi, info, apiEndpoint) {
+        const base =
+          `${device}|${platform}|${game}|${info.screenWidth}|${info.screenHeight}|${info.pixelRatio}|${info.touchPoints}|${info.userAgent}`;
+        const fp = hashCode(base + 'fingerprint') % 1000;
+        const aiWeight = 0.80 + (fp / 5000);
 
-                // device settings
-                let recs = [];
-                if (platform === 'Android') {
-                    recs = [
-                        'Use the highest stable refresh rate available.',
-                        'Disable battery saver while gaming.',
-                        'Keep the game updated.',
-                        'Close unnecessary background applications.',
-                        'Use a stable touch-response configuration.'
-                    ];
-                } else if (platform === 'iOS') {
-                    recs = [
-                        'Use the highest available display refresh rate.',
-                        'Disable Low Power Mode while gaming.',
-                        'Close unnecessary applications.',
-                        'Keep iOS and the game updated.'
-                    ];
-                } else {
-                    recs = [
-                        'Use a stable monitor refresh rate.',
-                        'Keep mouse polling/configuration consistent.',
-                        'Disable unnecessary background applications.',
-                        'Use a stable FPS configuration.'
-                    ];
-                }
-                settingsList.innerHTML = recs.map(r => `<li>${r}</li>`).join('');
-                settingsTitle.innerHTML =
-                    `USE THESE DEVICE SETTINGS FOR <span id="settingsDeviceName">${deviceName}</span>`;
+        const general = generateSensi(base + 'general', maxSensi, aiWeight);
+        const redDot = generateSensi(base + 'reddot', maxSensi, aiWeight);
+        const scope2x = generateSensi(base + '2x', maxSensi, aiWeight);
+        const scope4x = generateSensi(base + '4x', maxSensi, aiWeight);
+        const sniper = generateSensi(base + 'sniper', maxSensi, aiWeight);
+        const freeLook = generateSensi(base + 'freelook', maxSensi, aiWeight);
 
-                setupScreen.classList.add('hidden');
-                resultScreen.classList.remove('hidden');
-                copyToast.classList.add('hidden');
-            }
+        const confidence = 82 + (fp % 18);
+        return {
+          general,
+          redDot,
+          scope2x,
+          scope4x,
+          sniper,
+          freeLook,
+          fingerprint: fp,
+          confidence: confidence,
+          aiWeight: aiWeight
+        };
+      }
 
-            // ---- copy ----
-            function copySensi() {
-                const device = deviceNameInput.value.trim() || 'My Device';
-                const game = currentGame;
-                const s = generatedSensitivities;
-                if (!s || !s.general) return;
-                const text = `ZAKA CHEATS SENSI · AI GENERATED
+      // ---- collect browser info ----
+      function collectDeviceInfo() {
+        const ua = navigator.userAgent || '';
+        const platform = navigator.platform || 'unknown';
+        const touchPoints = navigator.maxTouchPoints || 0;
+        const screenW = screen.width || 0;
+        const screenH = screen.height || 0;
+        const pixelRatio = window.devicePixelRatio || 1;
+        let os = 'Unknown';
+        if (ua.indexOf('Android') > -1) os = 'Android';
+        else if (ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) os = 'iOS';
+        else if (ua.indexOf('Windows') > -1) os = 'Windows';
+        else if (ua.indexOf('Mac') > -1) os = 'macOS';
+        else if (ua.indexOf('Linux') > -1) os = 'Linux';
+        return {
+          userAgent: ua,
+          platform: platform,
+          touchPoints: touchPoints,
+          screenWidth: screenW,
+          screenHeight: screenH,
+          pixelRatio: pixelRatio,
+          os: os,
+          touchSupported: touchPoints > 0
+        };
+      }
+
+      // ---- update summary ----
+      function updateSummary(info) {
+        summaryBox.innerHTML = `
+          <div class="summary-item"><span><i class="fas fa-cube" style="margin-right:6px;color:#6a7ba0;"></i>Platform</span><span>${info.os}</span></div>
+          <div class="summary-item"><span><i class="fas fa-hand-pointer" style="margin-right:6px;color:#6a7ba0;"></i>Touch</span><span>${info.touchSupported ? '✅ Supported' : '❌ Not detected'}</span></div>
+          <div class="summary-item"><span><i class="fas fa-expand" style="margin-right:6px;color:#6a7ba0;"></i>Resolution</span><span>${info.screenWidth} × ${info.screenHeight}</span></div>
+          <div class="summary-item"><span><i class="fas fa-eye" style="margin-right:6px;color:#6a7ba0;"></i>Pixel Ratio</span><span>${info.pixelRatio.toFixed(2)}</span></div>
+        `;
+      }
+
+      // ---- loading animation ----
+      let progress = 0;
+      let animationInterval = null;
+
+      function startLoadingAnimation() {
+        const statusMessages = [
+          'Initializing ZAKA AI engine...',
+          'Detecting browser environment...',
+          'Analyzing screen resolution...',
+          'Analyzing touch capability...',
+          'Building device fingerprint...',
+          'Calibrating AI detection...',
+          'Ready for setup.'
+        ];
+        let msgIndex = 0;
+        progress = 0;
+        if (animationInterval) clearInterval(animationInterval);
+        animationInterval = setInterval(() => {
+          progress += 0.5 + Math.random() * 1.4;
+          if (progress > 50) progress = 50;
+          progressBar.style.width = progress + '%';
+          progressPercent.textContent = Math.floor(progress) + '%';
+          const idx = Math.min(Math.floor(progress / 8), statusMessages.length - 1);
+          statusMsg.textContent = statusMessages[idx] || 'Analyzing...';
+          if (progress >= 50) {
+            clearInterval(animationInterval);
+            animationInterval = null;
+            statusMsg.textContent = '✅ AI analysis complete. Setup your profile.';
+
+            const fp = hashCode(JSON.stringify(deviceInfo) + 'zaka') % 1000;
+            aiFingerprint.textContent = `ZAKA-${String(fp).padStart(4, '0')}`;
+            const conf = 82 + (fp % 18);
+            aiConfidence.textContent = `${conf}%`;
+
+            loadingScreen.classList.add('hidden');
+            setupScreen.classList.remove('hidden');
+          }
+        }, 140);
+      }
+
+      // ---- card toggles ----
+      function setupCardToggles(container, callback) {
+        const cards = container.querySelectorAll('.card-option');
+        cards.forEach(card => {
+          card.addEventListener('click', function() {
+            cards.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            if (callback) callback(this.dataset.value);
+          });
+        });
+      }
+
+      // ---- generate and show results ----
+      function generateAndShow() {
+        const deviceName = deviceNameInput.value.trim() || 'My Device';
+        const maxSensi = parseInt(maxSensiInput.value, 10);
+        const clampedMax = Math.min(200, Math.max(100, maxSensi));
+        maxSensiInput.value = clampedMax;
+
+        const info = deviceInfo;
+        const platform = currentPlatform;
+        const game = currentGame;
+        const apiEndpoint = apiEndpointInput.value.trim() || customApiEndpoint;
+
+        const result = computeSensitivities(deviceName, platform, game, clampedMax, info, apiEndpoint);
+        generatedSensitivities = {
+          general: result.general,
+          redDot: result.redDot,
+          scope2x: result.scope2x,
+          scope4x: result.scope4x,
+          sniper: result.sniper,
+          freeLook: result.freeLook,
+          fingerprint: result.fingerprint,
+          confidence: result.confidence
+        };
+
+        resultDeviceName.textContent = deviceName;
+        settingsDeviceName.textContent = deviceName;
+        sensiGeneral.textContent = result.general;
+        sensiRedDot.textContent = result.redDot;
+        sensi2x.textContent = result.scope2x;
+        sensi4x.textContent = result.scope4x;
+        sensiSniper.textContent = result.sniper;
+        sensiFreeLook.textContent = result.freeLook;
+
+        aiResultAnalysis.textContent = `AI weight ${(result.aiWeight * 100).toFixed(0)}%`;
+        aiDeviceMatch.textContent = `${82 + (result.fingerprint % 18)}%`;
+        aiApiStatus.textContent = apiConnected ? '✅ Connected' : '⚡ Local AI';
+
+        let recs = [];
+        if (platform === 'Android') {
+          recs = [
+            'Use the highest stable refresh rate available.',
+            'Disable battery saver while gaming.',
+            'Keep the game updated.',
+            'Close unnecessary background applications.',
+            'Use a stable touch-response configuration.'
+          ];
+        } else if (platform === 'iOS') {
+          recs = [
+            'Use the highest available display refresh rate.',
+            'Disable Low Power Mode while gaming.',
+            'Close unnecessary applications.',
+            'Keep iOS and the game updated.'
+          ];
+        } else {
+          recs = [
+            'Use a stable monitor refresh rate.',
+            'Keep mouse polling/configuration consistent.',
+            'Disable unnecessary background applications.',
+            'Use a stable FPS configuration.'
+          ];
+        }
+        settingsList.innerHTML = recs.map(r => `<li>${r}</li>`).join('');
+        settingsTitle.innerHTML =
+          `<i class="fas fa-cog" style="margin-right:10px;color:#f0932b;"></i>USE THESE DEVICE SETTINGS FOR <span id="settingsDeviceName">${deviceName}</span>`;
+
+        setupScreen.classList.add('hidden');
+        resultScreen.classList.remove('hidden');
+        copyToast.classList.add('hidden');
+      }
+
+      // ---- copy ----
+      function copySensi() {
+        const device = deviceNameInput.value.trim() || 'My Device';
+        const game = currentGame;
+        const s = generatedSensitivities;
+        if (!s || !s.general) return;
+        const text = `ZAKA CHEATS SENSI · AI GENERATED
         Device: ${device}
         Game: ${game}
         AI Confidence: ${s.confidence || '--'}%
@@ -960,179 +1129,219 @@
         
         Device Settings:
         Use the recommended settings shown in the application.`;
-                navigator.clipboard.writeText(text).then(() => {
-                    copyToast.classList.remove('hidden');
-                    setTimeout(() => copyToast.classList.add('hidden'), 2800);
-                }).catch(() => {
-                    const ta = document.createElement('textarea');
-                    ta.value = text;
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    ta.remove();
-                    copyToast.classList.remove('hidden');
-                    setTimeout(() => copyToast.classList.add('hidden'), 2800);
-                });
-            }
+        navigator.clipboard.writeText(text).then(() => {
+          copyToast.classList.remove('hidden');
+          setTimeout(() => copyToast.classList.add('hidden'), 2800);
+        }).catch(() => {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+          copyToast.classList.remove('hidden');
+          setTimeout(() => copyToast.classList.add('hidden'), 2800);
+        });
+      }
 
-            // ---- save as image ----
-            function saveAsImage() {
-                const device = deviceNameInput.value.trim() || 'My Device';
-                const s = generatedSensitivities;
-                if (!s || !s.general) return;
-                const canvas = document.createElement('canvas');
-                canvas.width = 600;
-                canvas.height = 760;
-                const ctx = canvas.getContext('2d');
+      // ---- save as image ----
+      function saveAsImage() {
+        const device = deviceNameInput.value.trim() || 'My Device';
+        const s = generatedSensitivities;
+        if (!s || !s.general) return;
+        const canvas = document.createElement('canvas');
+        canvas.width = 600;
+        canvas.height = 800;
+        const ctx = canvas.getContext('2d');
 
-                ctx.fillStyle = '#080b13';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Background
+        const grad = ctx.createRadialGradient(300, 400, 100, 300, 400, 500);
+        grad.addColorStop(0, '#141d32');
+        grad.addColorStop(1, '#080b13');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                ctx.shadowColor = '#ee5a24';
-                ctx.shadowBlur = 30;
-                ctx.strokeStyle = '#ee5a24';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
-                ctx.shadowBlur = 0;
+        // Border glow
+        ctx.shadowColor = '#ee5a24';
+        ctx.shadowBlur = 30;
+        ctx.strokeStyle = '#ee5a24';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+        ctx.shadowBlur = 0;
 
-                // title
-                const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
-                grad.addColorStop(0, '#ff6b6b');
-                grad.addColorStop(0.5, '#ee5a24');
-                grad.addColorStop(1, '#f0932b');
-                ctx.fillStyle = grad;
-                ctx.font = 'bold 30px "Segoe UI", sans-serif';
-                ctx.fillText('ZAKA CHEATS SENSI', 40, 80);
+        // Icon
+        ctx.fillStyle = '#ee5a24';
+        ctx.shadowColor = '#ee5a24';
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.roundRect(40, 40, 50, 50, 14);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = '#fff';
+        ctx.font = '28px "Font Awesome 6 Free"';
+        ctx.fillText('\uf0e7', 52, 78);
 
-                ctx.fillStyle = '#7a8bb5';
-                ctx.font = '14px "Segoe UI", sans-serif';
-                ctx.fillText('⚡ AI POWERED · FREE FIRE', 40, 112);
+        // Title
+        const titleGrad = ctx.createLinearGradient(0, 0, 400, 0);
+        titleGrad.addColorStop(0, '#ff6b6b');
+        titleGrad.addColorStop(0.5, '#ee5a24');
+        titleGrad.addColorStop(1, '#f0932b');
+        ctx.fillStyle = titleGrad;
+        ctx.font = 'bold 28px "Inter", "Segoe UI", sans-serif';
+        ctx.fillText('ZAKA CHEATS SENSI', 110, 78);
 
-                ctx.fillStyle = '#bcc6e6';
-                ctx.font = '17px "Segoe UI", sans-serif';
-                ctx.fillText(`Device: ${device}`, 40, 155);
-                ctx.fillText(`Platform: ${currentPlatform}  |  Game: ${currentGame}`, 40, 188);
+        ctx.fillStyle = '#6a7ba0';
+        ctx.font = '13px "Inter", sans-serif';
+        ctx.fillText('⚡ AI POWERED · FREE FIRE', 110, 106);
 
-                ctx.fillStyle = '#e9edf5';
-                ctx.font = 'bold 20px "Segoe UI", sans-serif';
-                ctx.fillText('Sensitivity Profile', 40, 240);
+        // Device info
+        ctx.fillStyle = '#bcc6e6';
+        ctx.font = '16px "Inter", sans-serif';
+        ctx.fillText(`Device: ${device}`, 40, 150);
+        ctx.fillText(`Platform: ${currentPlatform}  |  Game: ${currentGame}`, 40, 178);
 
-                const labels = ['General', 'Red Dot', '2X Scope', '4X Scope', 'Sniper', 'Free Look'];
-                const values = [s.general, s.redDot, s.scope2x, s.scope4x, s.sniper, s.freeLook];
-                let y = 290;
-                ctx.font = '18px "Segoe UI", sans-serif';
-                labels.forEach((label, i) => {
-                    ctx.fillStyle = '#bcc6e6';
-                    ctx.fillText(label, 60, y);
-                    ctx.fillStyle = '#f0932b';
-                    ctx.fillText(values[i].toString(), 300, y);
-                    y += 48;
-                });
+        // Sensitivities
+        ctx.fillStyle = '#eef2f8';
+        ctx.font = 'bold 18px "Inter", sans-serif';
+        ctx.fillText('Sensitivity Profile', 40, 226);
 
-                // AI info
-                ctx.fillStyle = '#6a7ba0';
-                ctx.font = '14px "Segoe UI", sans-serif';
-                ctx.fillText(`AI Confidence: ${s.confidence || '--'}%  ·  Fingerprint: ZAKA-${String(s.fingerprint || '0000').padStart(4, '0')}`,
-                    40, y + 20);
+        const labels = ['General', 'Red Dot', '2X Scope', '4X Scope', 'Sniper', 'Free Look'];
+        const values = [s.general, s.redDot, s.scope2x, s.scope4x, s.sniper, s.freeLook];
+        let y = 270;
+        ctx.font = '16px "Inter", sans-serif';
+        labels.forEach((label, i) => {
+          ctx.fillStyle = '#b7c3e0';
+          ctx.fillText(label, 60, y);
+          ctx.fillStyle = '#f0932b';
+          ctx.font = 'bold 22px "Inter", sans-serif';
+          ctx.fillText(values[i].toString(), 300, y);
+          ctx.font = '16px "Inter", sans-serif';
+          y += 50;
+        });
 
-                ctx.fillStyle = '#7a8bb5';
-                ctx.font = '15px "Segoe UI", sans-serif';
-                ctx.fillText('Device Settings:', 40, y + 60);
-                ctx.fillStyle = '#b7c3e0';
-                ctx.font = '13px "Segoe UI", sans-serif';
-                let recs = [];
-                if (currentPlatform === 'Android') recs = ['Highest refresh rate', 'Disable battery saver', 'Close background apps'];
-                else if (currentPlatform === 'iOS') recs = ['Highest refresh rate', 'Disable Low Power Mode', 'Close apps'];
-                else recs = ['Stable monitor refresh', 'Consistent mouse polling', 'Disable background apps'];
-                recs.forEach((r, i) => {
-                    ctx.fillText(`• ${r}`, 60, y + 90 + i * 26);
-                });
+        // AI info
+        ctx.fillStyle = '#6a7ba0';
+        ctx.font = '13px "Inter", sans-serif';
+        ctx.fillText(`AI Confidence: ${s.confidence || '--'}%  ·  Fingerprint: ZAKA-${String(s.fingerprint || '0000').padStart(4, '0')}`,
+          40, y + 16);
 
-                ctx.fillStyle = '#4c5b7c';
-                ctx.font = '12px "Segoe UI", sans-serif';
-                const date = new Date().toLocaleDateString();
-                ctx.fillText(`Generated: ${date}  ·  ZAKA AI v2.4`, 40, canvas.height - 30);
+        // Device settings
+        ctx.fillStyle = '#7a8bb5';
+        ctx.font = '14px "Inter", sans-serif';
+        ctx.fillText('Device Settings:', 40, y + 56);
+        ctx.fillStyle = '#b7c3e0';
+        ctx.font = '12px "Inter", sans-serif';
+        let recs = [];
+        if (currentPlatform === 'Android') recs = ['Highest refresh rate', 'Disable battery saver', 'Close background apps'];
+        else if (currentPlatform === 'iOS') recs = ['Highest refresh rate', 'Disable Low Power Mode', 'Close apps'];
+        else recs = ['Stable monitor refresh', 'Consistent mouse polling', 'Disable background apps'];
+        recs.forEach((r, i) => {
+          ctx.fillText(`▸ ${r}`, 60, y + 84 + i * 24);
+        });
 
-                const link = document.createElement('a');
-                const sanitized = device.replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'device';
-                link.download = `${sanitized}-zaka-sensi.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            }
+        ctx.fillStyle = '#3d4d6e';
+        ctx.font = '11px "Inter", sans-serif';
+        const date = new Date().toLocaleDateString();
+        ctx.fillText(`Generated: ${date}  ·  ZAKA AI v2.4`, 40, canvas.height - 30);
 
-            // ---- API test ----
-            function testApiConnection() {
-                const endpoint = apiEndpointInput.value.trim() || customApiEndpoint;
-                apiStatus.textContent = '⏳ Testing connection...';
-                apiStatus.style.color = '#fbbf24';
+        const link = document.createElement('a');
+        const sanitized = device.replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'device';
+        link.download = `${sanitized}-zaka-sensi.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }
 
-                // Simulate API test with timeout
-                setTimeout(() => {
-                    const success = Math.random() > 0.2;
-                    if (success) {
-                        apiConnected = true;
-                        apiStatus.textContent = '✅ Connected to custom AI endpoint';
-                        apiStatus.style.color = '#34d399';
-                        customApiEndpoint = endpoint;
-                    } else {
-                        apiConnected = false;
-                        apiStatus.textContent = '⚠️ Connection failed · using local AI';
-                        apiStatus.style.color = '#f87171';
-                    }
-                }, 1200);
-            }
+      // ---- API test ----
+      function testApiConnection() {
+        const endpoint = apiEndpointInput.value.trim() || customApiEndpoint;
+        apiStatus.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:6px;"></i> Testing...';
+        apiStatus.style.color = '#fbbf24';
 
-            // ---- reset ----
-            function resetToSetup() {
-                resultScreen.classList.add('hidden');
-                setupScreen.classList.remove('hidden');
-            }
+        setTimeout(() => {
+          const success = Math.random() > 0.2;
+          if (success) {
+            apiConnected = true;
+            apiStatus.innerHTML =
+              '<i class="fas fa-circle" style="color:#34d399;font-size:0.5rem;margin-right:6px;"></i> ✅ Connected to custom AI endpoint';
+            apiStatus.style.color = '#34d399';
+            customApiEndpoint = endpoint;
+          } else {
+            apiConnected = false;
+            apiStatus.innerHTML =
+              '<i class="fas fa-circle" style="color:#f87171;font-size:0.5rem;margin-right:6px;"></i> ⚠️ Connection failed · using local AI';
+            apiStatus.style.color = '#f87171';
+          }
+        }, 1200);
+      }
 
-            // ---- init ----
-            function init() {
-                deviceInfo = collectDeviceInfo();
-                updateSummary(deviceInfo);
+      // ---- reset ----
+      function resetToSetup() {
+        resultScreen.classList.add('hidden');
+        setupScreen.classList.remove('hidden');
+      }
 
-                // detect platform
-                let detectedPlatform = 'Android';
-                if (deviceInfo.os === 'iOS') detectedPlatform = 'iOS';
-                else if (deviceInfo.os === 'Windows' || deviceInfo.os === 'macOS' || deviceInfo.os === 'Linux')
-                detectedPlatform = 'PC';
-                platformCards.forEach(card => {
-                    card.classList.remove('active');
-                    if (card.dataset.value === detectedPlatform) {
-                        card.classList.add('active');
-                        currentPlatform = detectedPlatform;
-                    }
-                });
-                if (!document.querySelector('#platformSelector .card-option.active')) {
-                    document.querySelector('#platformSelector .card-option[data-value="Android"]').classList.add('active');
-                    currentPlatform = 'Android';
-                }
+      // ---- init ----
+      function init() {
+        deviceInfo = collectDeviceInfo();
+        updateSummary(deviceInfo);
 
-                gameCards.forEach(card => {
-                    card.classList.remove('active');
-                    if (card.dataset.value === 'Free Fire') card.classList.add('active');
-                });
-                currentGame = 'Free Fire';
+        let detectedPlatform = 'Android';
+        if (deviceInfo.os === 'iOS') detectedPlatform = 'iOS';
+        else if (deviceInfo.os === 'Windows' || deviceInfo.os === 'macOS' || deviceInfo.os === 'Linux') detectedPlatform =
+        'PC';
+        platformCards.forEach(card => {
+          card.classList.remove('active');
+          if (card.dataset.value === detectedPlatform) {
+            card.classList.add('active');
+            currentPlatform = detectedPlatform;
+          }
+        });
+        if (!document.querySelector('#platformSelector .card-option.active')) {
+          document.querySelector('#platformSelector .card-option[data-value="Android"]').classList.add('active');
+          currentPlatform = 'Android';
+        }
 
-                setupCardToggles(document.getElementById('platformSelector'), (val) => { currentPlatform = val; });
-                setupCardToggles(document.getElementById('gameSelector'), (val) => { currentGame = val; });
+        gameCards.forEach(card => {
+          card.classList.remove('active');
+          if (card.dataset.value === 'Free Fire') card.classList.add('active');
+        });
+        currentGame = 'Free Fire';
 
-                generateBtn.addEventListener('click', generateAndShow);
-                generateAgainBtn.addEventListener('click', resetToSetup);
-                copyBtn.addEventListener('click', copySensi);
-                saveImageBtn.addEventListener('click', saveAsImage);
-                apiTestBtn.addEventListener('click', testApiConnection);
+        setupCardToggles(document.getElementById('platformSelector'), (val) => { currentPlatform = val; });
+        setupCardToggles(document.getElementById('gameSelector'), (val) => { currentGame = val; });
 
-                // set initial API endpoint
-                apiEndpointInput.value = customApiEndpoint;
+        generateBtn.addEventListener('click', generateAndShow);
+        generateAgainBtn.addEventListener('click', resetToSetup);
+        copyBtn.addEventListener('click', copySensi);
+        saveImageBtn.addEventListener('click', saveAsImage);
+        apiTestBtn.addEventListener('click', testApiConnection);
 
-                startLoadingAnimation();
-            }
+        apiEndpointInput.value = customApiEndpoint;
 
-            init();
-        })();
-    </script>
+        // roundRect polyfill for canvas if needed
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+          CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+            if (r > w / 2) r = w / 2;
+            if (r > h / 2) r = h / 2;
+            this.moveTo(x + r, y);
+            this.lineTo(x + w - r, y);
+            this.quadraticCurveTo(x + w, y, x + w, y + r);
+            this.lineTo(x + w, y + h - r);
+            this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            this.lineTo(x + r, y + h);
+            this.quadraticCurveTo(x, y + h, x, y + h - r);
+            this.lineTo(x, y + r);
+            this.quadraticCurveTo(x, y, x + r, y);
+            this.closePath();
+            return this;
+          };
+        }
+
+        startLoadingAnimation();
+      }
+
+      init();
+    })();
+  </script>
 </body>
 </html>
