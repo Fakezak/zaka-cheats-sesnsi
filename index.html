@@ -3,27 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zaka Sensi - Free Fire Sensitivity Generator</title>
+  <title>Strick Sensi - Free Fire Sensitivity Generator</title>
   <style>
     :root {
-      --bg-color: #0b0205;
-      --card-bg: #16080e;
-      --accent-red: #ff1e27;
-      --accent-purple: #8b2cf5;
-      --text-color: #ffffff;
-      --text-dim: #b3b3b3;
+      --bg-dark: #07070a;
+      --card-bg: #0f1017;
+      --border-color: #1f2233;
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-red: #ff2a5f;
+      --text-white: #ffffff;
+      --text-gray: #8f96a3;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      background-color: var(--bg-dark);
+      color: var(--text-white);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -33,14 +35,14 @@
       overflow-x: hidden;
     }
 
-    /* Start Overlay for Audio Permission */
+    /* Initial Tap Overlay for Audio Autoplay */
     #startOverlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--bg-color);
+      background: var(--bg-dark);
       z-index: 100;
       display: flex;
       flex-direction: column;
@@ -56,7 +58,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--bg-color);
+      background: var(--bg-dark);
       z-index: 99;
       display: none;
       flex-direction: column;
@@ -66,215 +68,256 @@
 
     .loader-bar-bg {
       width: 280px;
-      height: 12px;
-      background: #240d17;
-      border-radius: 6px;
+      height: 8px;
+      background: #171926;
+      border-radius: 4px;
       overflow: hidden;
-      border: 1px solid var(--accent-red);
+      border: 1px solid var(--border-color);
       margin-top: 15px;
     }
 
     .loader-bar-fill {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, var(--accent-red), var(--accent-purple));
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
       transition: width 0.05s linear;
     }
 
     .loader-text {
       font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--accent-red);
+      font-weight: 800;
+      color: var(--accent-cyan);
       margin-top: 10px;
     }
 
-    /* Main Container */
+    /* Main Card Container */
     .container {
-      max-width: 600px;
+      max-width: 550px;
       width: 100%;
       background-color: var(--card-bg);
-      border: 2px solid var(--accent-red);
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(255, 30, 39, 0.3);
-      padding: 25px;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
+      padding: 20px;
       text-align: center;
       display: none;
     }
 
-    .logo-container {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .logo-container img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid var(--accent-purple);
-      box-shadow: 0 0 15px var(--accent-purple);
-      object-fit: cover;
-      background-color: #1a050d;
+    .header-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 20px;
+      color: var(--accent-cyan);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     p.subtitle {
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      margin-bottom: 25px;
+      color: var(--text-gray);
+      font-size: 0.85rem;
+      margin-bottom: 20px;
     }
 
-    .form-group {
+    /* Video Preview Styling */
+    .video-preview-container {
+      width: 100%;
+      height: 220px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
       margin-bottom: 20px;
+      position: relative;
+      background: #000;
+    }
+
+    .video-preview-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Form Controls */
+    .form-group {
+      margin-bottom: 15px;
       text-align: left;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      color: var(--text-color);
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-white);
     }
 
     select {
       width: 100%;
       padding: 12px;
-      background-color: #240d17;
-      border: 1px solid var(--accent-red);
-      border-radius: 8px;
+      background-color: #151722;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.95rem;
       outline: none;
       cursor: pointer;
     }
 
     select:focus {
-      border-color: var(--accent-purple);
-      box-shadow: 0 0 8px var(--accent-purple);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
     }
 
-    .btn-action {
+    .btn-strick {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(90deg, var(--accent-red), var(--accent-purple));
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
       border: none;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: bold;
+      border-radius: 10px;
+      color: #000;
+      font-size: 1rem;
+      font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 1px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.2s ease;
+      margin-top: 10px;
     }
 
-    .btn-action:hover {
+    .btn-strick:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(139, 44, 245, 0.4);
+      box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
     }
 
+    /* Output Results Grid */
     .result-section {
       display: none;
-      margin-top: 30px;
+      margin-top: 25px;
       padding-top: 20px;
-      border-top: 1px solid #33121f;
+      border-top: 1px solid var(--border-color);
     }
 
     .sensi-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 15px;
     }
 
-    .sensi-item {
-      background: #240d17;
-      padding: 12px;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent-purple);
+    .sensi-card {
+      background: #151722;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .sensi-item span.label {
-      font-size: 0.9rem;
-      color: var(--text-dim);
+    .sensi-card span.label {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      font-weight: 500;
     }
 
-    .sensi-item span.value {
-      font-size: 1.2rem;
-      font-weight: bold;
+    .sensi-card span.value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+    }
+
+    .fire-button-card {
+      background: #151722;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid var(--accent-red);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .fire-button-card span.value {
       color: var(--accent-red);
     }
 
     .btn-copy {
-      background-color: transparent;
-      border: 1px solid var(--accent-purple);
-      color: var(--accent-purple);
+      background: transparent;
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
       padding: 10px 20px;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 700;
       transition: all 0.2s;
+      width: 100%;
     }
 
     .btn-copy:hover {
-      background-color: var(--accent-purple);
-      color: #fff;
+      background: var(--accent-cyan);
+      color: #000;
     }
 
     footer {
-      margin-top: 30px;
-      color: var(--text-dim);
-      font-size: 0.8rem;
+      margin-top: 25px;
+      color: var(--text-gray);
+      font-size: 0.75rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Audio Element -->
+  <!-- Sound File -->
   <audio id="sensiAudio" src="https://files.catbox.moe/mkojpz.wav" preload="auto"></audio>
 
-  <!-- Initial User Tap Overlay -->
+  <!-- Initial Tap Overlay -->
   <div id="startOverlay">
-    <div class="logo-container">
-      <img class="zaka-logo" src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo" onerror="handleImageError(this)">
-    </div>
+    <div class="header-tag">Strick Sensi v2.0</div>
     <h1>Zaka Sensi</h1>
-    <button class="btn-action" style="max-width: 250px;" onclick="startApp()">Enter Site</button>
+    <p class="subtitle">Click below to auto-start sensitivity generator</p>
+    <button class="btn-strick" style="max-width: 260px;" onclick="startApp()">Start App</button>
   </div>
 
   <!-- Loading Screen Overlay -->
   <div id="loaderOverlay">
-    <div class="logo-container">
-      <img class="zaka-logo" src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo" onerror="handleImageError(this)">
-    </div>
+    <h1>Zaka Sensi</h1>
     <div class="loader-text" id="loaderText">0%</div>
     <div class="loader-bar-bg">
       <div class="loader-bar-fill" id="loaderFill"></div>
     </div>
   </div>
 
-  <!-- Main Website Container -->
+  <!-- Main App Layout -->
   <div class="container" id="mainContainer">
-    <div class="logo-container">
-      <img class="zaka-logo" src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo" onerror="handleImageError(this)">
+    <div class="header-tag">Strick Mode Active</div>
+    <h1>Zaka Sensi</h1>
+    <p class="subtitle">Pro Free Fire Headshot Sensitivity Generator (100 - 200)</p>
+
+    <!-- Auto Play Video Preview -->
+    <div class="video-preview-container">
+      <video id="previewVideo" autoplay loop muted playsinline>
+        <source src="https://videotourl.com/videos/1787084183797-f4f9f373-c452-4fc6-9580-794c7a983313.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
 
-    <h1>Zaka Sensi</h1>
-    <p class="subtitle">Best Free Fire Headshot Sensitivity Generator (100 - 200 Range)</p>
-
     <div class="form-group">
-      <label for="device">Select Device Brand:</label>
+      <label for="device">Device Brand:</label>
       <select id="device">
         <option value="samsung">Samsung</option>
         <option value="xiaomi">Xiaomi / Redmi / POCO</option>
@@ -286,7 +329,7 @@
     </div>
 
     <div class="form-group">
-      <label for="ram">Select Device RAM:</label>
+      <label for="ram">Device RAM:</label>
       <select id="ram">
         <option value="2-3">2GB - 3GB RAM</option>
         <option value="4-6">4GB - 6GB RAM</option>
@@ -294,58 +337,53 @@
       </select>
     </div>
 
-    <button class="btn-action" onclick="generateSensi()">Generate Best Sensi</button>
+    <button class="btn-strick" onclick="generateSensi()">Generate Sensi</button>
 
     <div class="result-section" id="resultSection">
       <div class="sensi-grid">
-        <div class="sensi-item">
+        <div class="sensi-card">
           <span class="label">General:</span>
           <span class="value" id="valGeneral">190</span>
         </div>
-        <div class="sensi-item">
+        <div class="sensi-card">
           <span class="label">Red Dot:</span>
           <span class="value" id="valRedDot">185</span>
         </div>
-        <div class="sensi-item">
+        <div class="sensi-card">
           <span class="label">2x Scope:</span>
           <span class="value" id="val2x">175</span>
         </div>
-        <div class="sensi-item">
+        <div class="sensi-card">
           <span class="label">4x Scope:</span>
           <span class="value" id="val4x">165</span>
         </div>
-        <div class="sensi-item">
+        <div class="sensi-card">
           <span class="label">Sniper Scope:</span>
           <span class="value" id="valSniper">140</span>
         </div>
-        <div class="sensi-item">
+        <div class="sensi-card">
           <span class="label">Free Look:</span>
           <span class="value" id="valFreeLook">150</span>
         </div>
       </div>
 
-      <div class="sensi-item" style="margin-bottom: 20px; border-left-color: var(--accent-red);">
-        <span class="label">Fire Button Size:</span>
+      <div class="fire-button-card">
+        <span class="label" style="color: var(--text-white); font-weight: 600;">Fire Button Size:</span>
         <span class="value" id="valFireButton">45%</span>
       </div>
 
-      <button class="btn-copy" onclick="copySettings()">Copy Settings</button>
+      <button class="btn-copy" onclick="copySettings()">Copy Strick Sensi</button>
     </div>
 
     <footer>
-      &copy; 2026 Zaka Sensi. All rights reserved.
+      &copy; 2026 Zaka Sensi x Strick Sensi. All rights reserved.
     </footer>
   </div>
 
   <script>
     const audio = document.getElementById('sensiAudio');
+    const video = document.getElementById('previewVideo');
     let soundPlayed = false;
-
-    function handleImageError(imgElement) {
-      // Direct direct-link fallback if primary fails to resolve
-      imgElement.onerror = null;
-      imgElement.src = 'https://i.ibb.co/WWNK9qxv';
-    }
 
     function startApp() {
       document.getElementById('startOverlay').style.display = 'none';
@@ -362,6 +400,7 @@
         fill.style.width = progress + '%';
         text.innerText = progress + '%';
 
+        // Play sound when progress reaches 90%
         if (progress >= 90 && !soundPlayed) {
           soundPlayed = true;
           audio.play().catch(e => console.log('Audio autoplay prevented:', e));
@@ -372,6 +411,11 @@
           setTimeout(() => {
             document.getElementById('loaderOverlay').style.display = 'none';
             document.getElementById('mainContainer').style.display = 'block';
+            
+            // Auto-play preview video when app loads
+            if (video) {
+              video.play().catch(e => console.log('Video autoplay error:', e));
+            }
           }, 300);
         }
       }, 30);
@@ -429,10 +473,10 @@
       const fl = document.getElementById('valFreeLook').innerText;
       const fb = document.getElementById('valFireButton').innerText;
 
-      const textToCopy = `Zaka Sensi Settings:\nGeneral: ${g}\nRed Dot: ${rd}\n2x Scope: ${s2}\n4x Scope: ${s4}\nSniper Scope: ${sn}\nFree Look: ${fl}\nFire Button: ${fb}`;
+      const textToCopy = `Zaka Sensi (Strick Sensi Settings):\nGeneral: ${g}\nRed Dot: ${rd}\n2x Scope: ${s2}\n4x Scope: ${s4}\nSniper Scope: ${sn}\nFree Look: ${fl}\nFire Button: ${fb}`;
 
       navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('Sensitivity settings copied to clipboard!');
+        alert('Strick Sensi settings copied to clipboard!');
       });
     }
   </script>
