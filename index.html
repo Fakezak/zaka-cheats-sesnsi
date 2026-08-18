@@ -1,1416 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>ZAKA CHEATS SENSI</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zaka Sensi - Free Fire Sensitivity Generator</title>
   <style>
+    :root {
+      --bg-color: #0b0205;
+      --card-bg: #16080e;
+      --accent-red: #ff1e27;
+      --accent-purple: #8b2cf5;
+      --text-color: #ffffff;
+      --text-dim: #b3b3b3;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      background: #0a0c17;
-      color: #eef2f8;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      background-image: radial-gradient(circle at 10% 20%, rgba(238, 90, 36, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
-    }
-
-    #app {
-      max-width: 760px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    /* Glassmorphism with gradient border */
-    .glass-card {
-      background: rgba(14, 20, 40, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 40px;
-      padding: 32px 28px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.03);
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 40px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(238, 90, 36, 0.3), rgba(168, 85, 247, 0.2), rgba(238, 90, 36, 0.1));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .flex-col {
-      display: flex;
       flex-direction: column;
-      gap: 20px;
-    }
-
-    .flex-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
       align-items: center;
+      padding: 20px;
     }
 
-    .text-center {
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background-color: var(--card-bg);
+      border: 2px solid var(--accent-red);
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255, 30, 39, 0.3);
+      padding: 25px;
       text-align: center;
+      margin-top: 20px;
     }
 
-    /* ===== LOADING SCREEN ===== */
-    .loading-screen {
-      min-height: 480px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
+    .logo-container {
+      margin-bottom: 20px;
     }
 
-    .brand-header {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 6px;
-    }
-
-    .brand-icon {
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, #ee5a24, #f0932b);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-      box-shadow: 0 8px 30px rgba(238, 90, 36, 0.4);
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .brand-icon::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(238, 90, 36, 0.3), rgba(168, 85, 247, 0.2));
-      z-index: -1;
-      filter: blur(12px);
-    }
-
-    .brand-icon i {
-      font-size: 30px;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    }
-
-    .app-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ff6b6b, #ee5a24, #f0932b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 40px rgba(238, 90, 36, 0.15);
-    }
-
-    .app-sub {
-      font-size: 0.8rem;
-      color: #6a7ba0;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-top: -4px;
-    }
-
-    .loader {
-      width: 56px;
-      height: 56px;
-      border: 4px solid #1a2340;
-      border-top: 4px solid #ee5a24;
+    .logo-container img {
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      animation: spin 0.9s cubic-bezier(0.6, 0, 0.4, 1) infinite;
-      box-shadow: 0 0 30px rgba(238, 90, 36, 0.15);
+      border: 3px solid var(--accent-purple);
+      box-shadow: 0 0 15px var(--accent-purple);
+      object-fit: cover;
     }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .progress-container {
-      width: 100%;
-      max-width: 340px;
-      background: #141d32;
-      border-radius: 60px;
-      height: 8px;
-      overflow: hidden;
-      border: 1px solid #1f2a4a;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #ee5a24, #f0932b, #ff6b6b);
-      border-radius: 60px;
-      transition: width 0.2s ease;
-    }
-
-    .status-msg {
-      font-size: 0.95rem;
-      color: #a7b1d6;
-      min-height: 2rem;
-      font-weight: 400;
-      letter-spacing: 0.3px;
-    }
-
-    .ai-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #1a1040, #2d1b69);
-      padding: 6px 20px 6px 16px;
-      border-radius: 60px;
-      border: 1px solid #6c3bc9;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #c084fc;
-      letter-spacing: 0.8px;
+    h1 {
+      font-size: 2rem;
       text-transform: uppercase;
-    }
-
-    .ai-badge .pulse-dot {
-      width: 10px;
-      height: 10px;
-      background: #a855f7;
-      border-radius: 50%;
-      animation: pulse-dot 1.8s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.3;
-        transform: scale(0.6);
-      }
-    }
-
-    /* ===== SETUP SCREEN ===== */
-    .setup-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 4px;
-    }
-
-    .setup-header h2 {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #eef2f8;
-      letter-spacing: -0.3px;
-    }
-
-    /* AI Detection Panel */
-    .ai-detection-panel {
-      background: #0a0f20;
-      border-radius: 24px;
-      padding: 16px 20px;
-      border: 1px solid #1f2a4a;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 20px;
-    }
-
-    .ai-detection-panel .ai-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      font-size: 0.85rem;
-      border-bottom: 1px solid #141d32;
-    }
-
-    .ai-detection-panel .ai-row:last-child {
-      border-bottom: none;
-    }
-
-    .ai-detection-panel .ai-label {
-      color: #7a8bb5;
-      font-weight: 400;
-    }
-
-    .ai-detection-panel .ai-value {
-      color: #c084fc;
-      font-weight: 600;
-    }
-
-    .ai-detection-panel .ai-value.confident {
-      color: #34d399;
-    }
-
-    .ai-detection-panel .ai-value.warning {
-      color: #fbbf24;
-    }
-
-    /* Summary Grid */
-    .summary-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 18px;
-      background: #0a0f20;
-      padding: 14px 18px;
-      border-radius: 20px;
-      border: 1px solid #1a2340;
-    }
-
-    .summary-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
-      font-size: 0.88rem;
-      border-bottom: 1px solid #141d32;
-    }
-
-    .summary-item span:first-child {
-      color: #6a7ba0;
-    }
-
-    .summary-item span:last-child {
-      font-weight: 500;
-      color: #eef2f8;
-    }
-
-    /* API Section */
-    .api-section {
-      background: #0a0f20;
-      border-radius: 24px;
-      padding: 16px 18px;
-      border: 1px solid #1a2340;
-    }
-
-    .api-section .api-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .api-section .api-header h4 {
-      font-size: 0.9rem;
-      color: #b7c3e0;
-      font-weight: 500;
-    }
-
-    .api-input-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .api-input-group input {
-      flex: 2;
-      min-width: 170px;
-      background: #141d32;
-      border: 1px solid #1f2a4a;
-      border-radius: 40px;
-      padding: 10px 18px;
-      color: #eef2f8;
-      font-size: 0.85rem;
-      outline: none;
-      transition: border 0.2s;
-    }
-
-    .api-input-group input:focus {
-      border-color: #a855f7;
-    }
-
-    .api-input-group button {
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      border: none;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: 600;
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: transform 0.1s, box-shadow 0.2s;
-      white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
-    }
-
-    .api-input-group button:active {
-      transform: scale(0.96);
-    }
-
-    .api-status {
-      font-size: 0.8rem;
-      color: #7a8bb5;
-      margin-top: 10px;
-      padding: 6px 16px;
-      background: #0d1328;
-      border-radius: 40px;
-      display: inline-block;
-      border: 1px solid #1a2340;
-    }
-
-    /* Form */
-    .form-label {
-      font-weight: 500;
-      color: #bcc6e6;
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    input,
-    select {
-      background: #141d32;
-      border: 1px solid #1f2a4a;
-      border-radius: 24px;
-      padding: 14px 20px;
-      color: #eef2f8;
-      font-size: 1rem;
-      width: 100%;
-      outline: none;
-      transition: border 0.2s, box-shadow 0.2s;
-    }
-
-    input::placeholder {
-      color: #3d4d6e;
-      font-weight: 300;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: #ee5a24;
-      box-shadow: 0 0 0 3px rgba(238, 90, 36, 0.15);
-    }
-
-    .card-selector {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .card-option {
-      background: #141d32;
-      border: 2px solid #1f2a4a;
-      border-radius: 40px;
-      padding: 10px 24px;
-      font-weight: 600;
-      color: #8a9bbd;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex: 1 0 auto;
-      text-align: center;
-      font-size: 0.95rem;
-    }
-
-    .card-option.active {
-      border-color: #ee5a24;
-      background: #1e2742;
-      color: #fff;
-      box-shadow: 0 0 24px rgba(238, 90, 36, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .card-option:hover {
-      border-color: #f0932b;
-    }
-
-    .range-hint {
-      font-size: 0.82rem;
-      color: #6a7ba0;
-      padding: 4px 6px;
-      margin-top: 2px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #ee5a24, #f0932b, #ff6b6b);
-      border: none;
-      padding: 18px 24px;
-      border-radius: 60px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #fff;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.25s;
-      width: 100%;
-      letter-spacing: 0.8px;
-      box-shadow: 0 8px 32px rgba(238, 90, 36, 0.3);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .btn-primary:active {
-      transform: scale(0.97);
-    }
-
-    .btn-primary i {
-      font-size: 1.2rem;
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 1.5px solid #2a3555;
-      border-radius: 60px;
-      padding: 12px 18px;
-      font-weight: 600;
-      color: #b7c3e0;
-      cursor: pointer;
-      transition: 0.2s;
-      flex: 1;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.9rem;
-    }
-
-    .btn-outline:hover {
-      border-color: #ee5a24;
-      color: #ee5a24;
-      background: rgba(238, 90, 36, 0.04);
-    }
-
-    .btn-outline i {
-      font-size: 1rem;
-    }
-
-    /* ===== RESULTS ===== */
-    .result-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .result-header .result-title {
-      font-size: 0.7rem;
-      color: #6a7ba0;
       letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 600;
+      background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
     }
 
-    .result-header .result-device {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #eef2f8;
+    p.subtitle {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      background-color: #240d17;
+      border: 1px solid var(--accent-red);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    select:focus {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 8px var(--accent-purple);
+    }
+
+    .btn-generate {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-purple));
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-generate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(139, 44, 245, 0.4);
+    }
+
+    .result-section {
+      display: none;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #33121f;
     }
 
     .sensi-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 14px;
-      margin: 18px 0 14px;
-    }
-
-    .sensi-card {
-      background: #0a0f20;
-      border-radius: 20px;
-      padding: 14px 8px;
-      text-align: center;
-      border: 1px solid #1a2340;
-      transition: border 0.2s, transform 0.15s;
-    }
-
-    .sensi-card:hover {
-      border-color: #f0932b;
-      transform: translateY(-2px);
-    }
-
-    .sensi-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: #6a7ba0;
-      font-weight: 600;
-    }
-
-    .sensi-value {
-      font-size: 2.2rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ff6b6b, #f0932b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      line-height: 1.3;
-      margin-top: 2px;
-    }
-
-    .device-settings {
-      background: #0a0f20;
-      border-radius: 24px;
-      padding: 18px 22px;
-      margin: 14px 0 16px;
-      border-left: 4px solid #ee5a24;
-    }
-
-    .device-settings h4 {
-      color: #eef2f8;
-      margin-bottom: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .device-settings ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .device-settings li {
-      padding: 5px 0;
-      font-size: 0.88rem;
-      color: #b7c3e0;
-      border-bottom: 1px solid #141d32;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .device-settings li::before {
-      content: '▸';
-      color: #f0932b;
-      font-weight: 700;
-    }
-
-    .device-settings li:last-child {
-      border-bottom: none;
-    }
-
-    .action-row {
-      display: flex;
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      flex-wrap: wrap;
-      margin: 8px 0 4px;
+      margin-bottom: 20px;
     }
 
-    .action-row .btn-outline {
-      flex: 1;
-      min-width: 100px;
+    .sensi-item {
+      background: #240d17;
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-purple);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .toast {
-      background: #1e2742;
-      border: 1px solid #34d399;
-      border-radius: 60px;
-      padding: 8px 24px;
-      color: #34d399;
-      font-weight: 500;
-      display: inline-block;
-      margin-top: 8px;
+    .sensi-item span.label {
       font-size: 0.9rem;
+      color: var(--text-dim);
     }
 
-    .coming-soon {
-      color: #3d4d6e;
-      text-align: center;
-      margin-top: 28px;
-      font-weight: 400;
-      border-top: 1px solid #1a2340;
-      padding-top: 24px;
-      letter-spacing: 0.3px;
+    .sensi-item span.value {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--accent-red);
     }
 
-    .coming-soon .more-tools {
-      font-size: 0.9rem;
-      color: #6a7ba0;
-      font-weight: 500;
+    .btn-copy {
+      background-color: transparent;
+      border: 1px solid var(--accent-purple);
+      color: var(--accent-purple);
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
     }
 
-    .coming-soon .more-tools i {
-      margin-right: 6px;
+    .btn-copy:hover {
+      background-color: var(--accent-purple);
+      color: #fff;
     }
 
-    /* Responsive */
-    @media (max-width: 580px) {
-      .glass-card {
-        padding: 22px 16px;
-        border-radius: 28px;
-      }
-      .sensi-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      .app-title {
-        font-size: 1.6rem;
-      }
-      .brand-icon {
-        width: 44px;
-        height: 44px;
-        font-size: 22px;
-        border-radius: 14px;
-      }
-      .brand-icon i {
-        font-size: 22px;
-      }
-      .ai-detection-panel {
-        grid-template-columns: 1fr;
-      }
-      .setup-header h2 {
-        font-size: 1.25rem;
-      }
-      .summary-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .sensi-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-      .sensi-value {
-        font-size: 1.8rem;
-      }
+    footer {
+      margin-top: 30px;
+      color: var(--text-dim);
+      font-size: 0.8rem;
     }
   </style>
 </head>
 <body>
-  <div id="app">
 
-    <!-- ===== LOADING SCREEN ===== -->
-    <div id="loadingScreen" class="glass-card loading-screen">
-      <div class="brand-header">
-        <div class="brand-icon">
-          <i class="fas fa-bolt"></i>
-        </div>
-        <div class="app-title">ZAKA CHEATS SENSI</div>
-      </div>
-      <div class="app-sub">⚡ AI POWERED · FREE FIRE</div>
-      <div class="loader"></div>
-      <div class="progress-container">
-        <div id="progressBar" class="progress-bar" style="width:0%"></div>
-      </div>
-      <div id="statusMsg" class="status-msg">Initializing AI engine...</div>
-      <div id="progressPercent" style="font-weight:700; color:#f0932b; font-size:1.1rem;">0%</div>
-      <div class="ai-badge">
-        <span class="pulse-dot"></span>
-        AI DETECTION ACTIVE
-      </div>
+  <div class="container">
+    <!-- Logo Section -->
+    <div class="logo-container">
+      <img src="Gemini_Generated_Image_z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
     </div>
 
-    <!-- ===== SETUP SCREEN ===== -->
-    <div id="setupScreen" class="glass-card hidden flex-col">
-      <div class="setup-header">
-        <div style="display:flex; align-items:center; gap:14px;">
-          <div class="brand-icon" style="width:42px;height:42px;font-size:18px;border-radius:14px;">
-            <i class="fas fa-bolt"></i>
-          </div>
-          <h2>Device Profile</h2>
-        </div>
-        <span class="ai-badge" style="font-size:0.6rem; padding:4px 14px;">
-          <span class="pulse-dot" style="width:8px;height:8px;"></span>
-          AI READY
-        </span>
-      </div>
+    <h1>Zaka Sensi</h1>
+    <p class="subtitle">Best Free Fire Headshot Sensitivity Generator</p>
 
-      <!-- AI Detection Panel -->
-      <div class="ai-detection-panel" id="aiDetectionPanel">
-        <div class="ai-row"><span class="ai-label"><i class="fas fa-brain" style="margin-right:6px;"></i>AI Model</span><span class="ai-value">ZAKA v2.5 · Deterministic</span></div>
-        <div class="ai-row"><span class="ai-label"><i class="fas fa-microchip"></i> Detection Engine</span><span class="ai-value confident">Active</span></div>
-        <div class="ai-row"><span class="ai-label"><i class="fas fa-fingerprint"></i> Device Fingerprint</span><span class="ai-value" id="aiFingerprint">--</span></div>
-        <div class="ai-row"><span class="ai-label"><i class="fas fa-chart-line"></i> Confidence Score</span><span class="ai-value confident" id="aiConfidence">--</span></div>
-      </div>
-
-      <!-- Summary -->
-      <div id="summaryBox" class="summary-grid"></div>
-
-      <!-- API Section -->
-      <div class="api-section">
-        <div class="api-header">
-          <h4><i class="fas fa-plug" style="margin-right:8px;color:#a855f7;"></i>CUSTOM AI API</h4>
-          <span style="font-size:0.65rem; color:#6a7ba0; background:#0d1328; padding:2px 12px; border-radius:40px; border:1px solid #1a2340;">optional</span>
-        </div>
-        <div class="api-input-group">
-          <input id="apiEndpointInput" type="text" placeholder="https://your-ai-api.com/predict" value="https://api.zaka-ai.tech/v1/sensi" />
-          <button id="apiTestBtn"><i class="fas fa-link"></i> Test</button>
-        </div>
-        <div id="apiStatus" class="api-status"><i class="fas fa-circle" style="color:#34d399;font-size:0.5rem;margin-right:6px;"></i> Custom AI endpoint configured</div>
-      </div>
-
-      <div>
-        <div class="form-label"><i class="fas fa-mobile-alt" style="color:#6a7ba0;width:20px;"></i>Device Name</div>
-        <input id="deviceNameInput" type="text" placeholder="Example: Samsung Galaxy A51 5G" value="Samsung Galaxy A51 5G" />
-      </div>
-
-      <div>
-        <div class="form-label"><i class="fas fa-gamepad" style="color:#6a7ba0;width:20px;"></i>Platform</div>
-        <div class="card-selector" id="platformSelector">
-          <div class="card-option active" data-value="Android"><i class="fab fa-android" style="margin-right:6px;"></i>Android</div>
-          <div class="card-option" data-value="iOS"><i class="fab fa-apple" style="margin-right:6px;"></i>iOS</div>
-          <div class="card-option" data-value="PC"><i class="fas fa-desktop" style="margin-right:6px;"></i>PC</div>
-        </div>
-      </div>
-
-      <div>
-        <div class="form-label"><i class="fas fa-fire" style="color:#6a7ba0;width:20px;"></i>Game</div>
-        <div class="card-selector" id="gameSelector">
-          <div class="card-option active" data-value="Free Fire">Free Fire</div>
-          <div class="card-option" data-value="Free Fire MAX">Free Fire MAX</div>
-        </div>
-      </div>
-
-      <div>
-        <div class="form-label"><i class="fas fa-sliders-h" style="color:#6a7ba0;width:20px;"></i>Maximum Sensitivity</div>
-        <input id="maxSensiInput" type="number" min="100" max="200" value="200" />
-        <div class="range-hint"><i class="fas fa-info-circle" style="margin-right:6px;"></i>Sensitivity values are generated within your selected 100–200 range.</div>
-      </div>
-
-      <button id="generateBtn" class="btn-primary"><i class="fas fa-robot"></i> GENERATE AI SENSI</button>
+    <!-- Inputs -->
+    <div class="form-group">
+      <label for="device">Select Device Brand:</label>
+      <select id="device">
+        <option value="samsung">Samsung</option>
+        <option value="xiaomi">Xiaomi / Redmi / POCO</option>
+        <option value="realme">Realme</option>
+        <option value="iphone">iPhone / iPad</option>
+        <option value="infinix">Infinix / Tecno</option>
+        <option value="other">Other Android</option>
+      </select>
     </div>
 
-    <!-- ===== RESULTS SCREEN ===== -->
-    <div id="resultScreen" class="glass-card hidden flex-col">
-      <div class="result-header">
-        <div>
-          <div class="result-title"><i class="fas fa-check-circle" style="color:#34d399;margin-right:6px;"></i>AI SENSITIVITY GENERATED</div>
-          <div class="result-device">Optimized for <span id="resultDeviceName">Device</span></div>
+    <div class="form-group">
+      <label for="ram">Select Device RAM:</label>
+      <select id="ram">
+        <option value="2-3">2GB - 3GB RAM</option>
+        <option value="4-6">4GB - 6GB RAM</option>
+        <option value="8+">8GB+ RAM</option>
+      </select>
+    </div>
+
+    <button class="btn-generate" onclick="generateSensi()">Generate Best Sensi</button>
+
+    <!-- Output -->
+    <div class="result-section" id="resultSection">
+      <div class="sensi-grid">
+        <div class="sensi-item">
+          <span class="label">General:</span>
+          <span class="value" id="valGeneral">95</span>
         </div>
-        <span class="ai-badge" style="font-size:0.6rem; padding:4px 14px;">
-          <span class="pulse-dot" style="width:8px;height:8px;"></span>
-          AI v2.5
-        </span>
+        <div class="sensi-item">
+          <span class="label">Red Dot:</span>
+          <span class="value" id="valRedDot">90</span>
+        </div>
+        <div class="sensi-item">
+          <span class="label">2x Scope:</span>
+          <span class="value" id="val2x">85</span>
+        </div>
+        <div class="sensi-item">
+          <span class="label">4x Scope:</span>
+          <span class="value" id="val4x">80</span>
+        </div>
+        <div class="sensi-item">
+          <span class="label">Sniper Scope:</span>
+          <span class="value" id="valSniper">50</span>
+        </div>
+        <div class="sensi-item">
+          <span class="label">Free Look:</span>
+          <span class="value" id="valFreeLook">65</span>
+        </div>
       </div>
 
-      <div class="sensi-grid" id="sensiGrid">
-        <div class="sensi-card"><div class="sensi-label">GENERAL</div><div class="sensi-value" id="sensiGeneral">--</div></div>
-        <div class="sensi-card"><div class="sensi-label">RED DOT</div><div class="sensi-value" id="sensiRedDot">--</div></div>
-        <div class="sensi-card"><div class="sensi-label">2X SCOPE</div><div class="sensi-value" id="sensi2x">--</div></div>
-        <div class="sensi-card"><div class="sensi-label">4X SCOPE</div><div class="sensi-value" id="sensi4x">--</div></div>
-        <div class="sensi-card"><div class="sensi-label">SNIPER</div><div class="sensi-value" id="sensiSniper">--</div></div>
-        <div class="sensi-card"><div class="sensi-label">FREE LOOK</div><div class="sensi-value" id="sensiFreeLook">--</div></div>
+      <div class="sensi-item" style="margin-bottom: 20px; border-left-color: var(--accent-red);">
+        <span class="label">Fire Button Size:</span>
+        <span class="value" id="valFireButton">45%</span>
       </div>
 
-      <!-- AI Analysis Result -->
-      <div class="ai-detection-panel" style="border-color:#1f2a4a; grid-template-columns:1fr 1fr 1fr;">
-        <div class="ai-row" style="border-bottom:none;padding:4px 0;"><span class="ai-label"><i class="fas fa-robot"></i> AI Analysis</span><span class="ai-value confident" id="aiResultAnalysis">Optimized</span></div>
-        <div class="ai-row" style="border-bottom:none;padding:4px 0;"><span class="ai-label"><i class="fas fa-check"></i> Device Match</span><span class="ai-value confident" id="aiDeviceMatch">100%</span></div>
-        <div class="ai-row" style="border-bottom:none;padding:4px 0;"><span class="ai-label"><i class="fas fa-cloud"></i> API Status</span><span class="ai-value" id="aiApiStatus">Ready</span></div>
-      </div>
-
-      <div class="device-settings" id="deviceSettingsBox">
-        <h4 id="settingsTitle"><i class="fas fa-cog" style="margin-right:10px;color:#f0932b;"></i>USE THESE DEVICE SETTINGS FOR <span id="settingsDeviceName">Device</span></h4>
-        <ul id="settingsList"></ul>
-      </div>
-
-      <div class="action-row">
-        <button id="copyBtn" class="btn-outline"><i class="fas fa-copy"></i> COPY</button>
-        <button id="saveImageBtn" class="btn-outline"><i class="fas fa-image"></i> SAVE PNG</button>
-        <button id="generateAgainBtn" class="btn-outline"><i class="fas fa-redo"></i> AGAIN</button>
-      </div>
-      <div id="copyToast" class="toast hidden"><i class="fas fa-check-circle" style="margin-right:8px;"></i>Sensi copied!</div>
-
-      <div class="coming-soon">
-        <div class="more-tools"><i class="fas fa-tools"></i> MORE TOOLS</div>
-        <div style="color:#2a3555; font-weight:300; margin-top:4px;">Coming soon</div>
-      </div>
+      <button class="btn-copy" onclick="copySettings()">Copy Settings</button>
     </div>
   </div>
 
+  <footer>
+    &copy; 2026 Zaka Sensi. All rights reserved.
+  </footer>
+
   <script>
-    (function() {
-      "use strict";
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-      // DOM refs
-      const loadingScreen = document.getElementById('loadingScreen');
-      const setupScreen = document.getElementById('setupScreen');
-      const resultScreen = document.getElementById('resultScreen');
-      const progressBar = document.getElementById('progressBar');
-      const statusMsg = document.getElementById('statusMsg');
-      const progressPercent = document.getElementById('progressPercent');
-      const summaryBox = document.getElementById('summaryBox');
-      const deviceNameInput = document.getElementById('deviceNameInput');
-      const maxSensiInput = document.getElementById('maxSensiInput');
-      const generateBtn = document.getElementById('generateBtn');
-      const generateAgainBtn = document.getElementById('generateAgainBtn');
-      const copyBtn = document.getElementById('copyBtn');
-      const saveImageBtn = document.getElementById('saveImageBtn');
-      const copyToast = document.getElementById('copyToast');
-      const apiEndpointInput = document.getElementById('apiEndpointInput');
-      const apiTestBtn = document.getElementById('apiTestBtn');
-      const apiStatus = document.getElementById('apiStatus');
-      const aiFingerprint = document.getElementById('aiFingerprint');
-      const aiConfidence = document.getElementById('aiConfidence');
-      const aiResultAnalysis = document.getElementById('aiResultAnalysis');
-      const aiDeviceMatch = document.getElementById('aiDeviceMatch');
-      const aiApiStatus = document.getElementById('aiApiStatus');
+    function generateSensi() {
+      const ram = document.getElementById('ram').value;
 
-      const resultDeviceName = document.getElementById('resultDeviceName');
-      const settingsDeviceName = document.getElementById('settingsDeviceName');
-      const sensiGeneral = document.getElementById('sensiGeneral');
-      const sensiRedDot = document.getElementById('sensiRedDot');
-      const sensi2x = document.getElementById('sensi2x');
-      const sensi4x = document.getElementById('sensi4x');
-      const sensiSniper = document.getElementById('sensiSniper');
-      const sensiFreeLook = document.getElementById('sensiFreeLook');
-      const settingsList = document.getElementById('settingsList');
-      const settingsTitle = document.getElementById('settingsTitle');
+      let general, redDot, scope2, scope4, sniper, freeLook, fireButton;
 
-      const platformCards = document.querySelectorAll('#platformSelector .card-option');
-      const gameCards = document.querySelectorAll('#gameSelector .card-option');
-
-      // State
-      let deviceInfo = {};
-      let currentPlatform = 'Android';
-      let currentGame = 'Free Fire';
-      let generatedSensitivities = {};
-      let customApiEndpoint = 'https://api.zaka-ai.tech/v1/sensi';
-      let apiConnected = false;
-
-      // ---- AUDIO SYSTEM ----
-      const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-
-      // Preload the sound from the provided URL
-      let soundBuffer = null;
-      let soundLoaded = false;
-
-      function loadSound() {
-        const url = 'https://files.catbox.moe/mkojpz.wav';
-        fetch(url)
-          .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.arrayBuffer();
-          })
-          .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
-          .then(decodedData => {
-            soundBuffer = decodedData;
-            soundLoaded = true;
-            console.log('✅ Sound loaded successfully.');
-          })
-          .catch(err => {
-            console.warn('⚠️ Could not load sound:', err);
-            // Fallback: create a simple beep using oscillator
-            soundLoaded = false;
-          });
+      if (ram === '2-3') {
+        general = getRandomInt(96, 100);
+        redDot = getRandomInt(92, 98);
+        scope2 = getRandomInt(88, 95);
+        scope4 = getRandomInt(85, 92);
+        fireButton = getRandomInt(40, 48);
+      } else if (ram === '4-6') {
+        general = getRandomInt(90, 96);
+        redDot = getRandomInt(85, 92);
+        scope2 = getRandomInt(82, 90);
+        scope4 = getRandomInt(80, 88);
+        fireButton = getRandomInt(45, 52);
+      } else {
+        general = getRandomInt(85, 92);
+        redDot = getRandomInt(80, 88);
+        scope2 = getRandomInt(78, 85);
+        scope4 = getRandomInt(75, 82);
+        fireButton = getRandomInt(50, 58);
       }
 
-      function playCompletionSound() {
-        if (soundLoaded && soundBuffer) {
-          try {
-            const source = audioCtx.createBufferSource();
-            source.buffer = soundBuffer;
-            source.connect(audioCtx.destination);
-            source.start(0);
-            console.log('🔊 Playing completion sound.');
-          } catch (e) {
-            console.warn('⚠️ Audio playback error:', e);
-            playFallbackBeep();
-          }
-        } else {
-          playFallbackBeep();
-        }
-      }
+      sniper = getRandomInt(45, 60);
+      freeLook = getRandomInt(50, 75);
 
-      function playFallbackBeep() {
-        try {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'square';
-          osc.frequency.value = 880;
-          gain.gain.value = 0.15;
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          setTimeout(() => {
-            osc.stop();
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-          }, 250);
-        } catch (e) {
-          // Silently fail
-        }
-      }
+      document.getElementById('valGeneral').innerText = general;
+      document.getElementById('valRedDot').innerText = redDot;
+      document.getElementById('val2x').innerText = scope2;
+      document.getElementById('val4x').innerText = scope4;
+      document.getElementById('valSniper').innerText = sniper;
+      document.getElementById('valFreeLook').innerText = freeLook;
+      document.getElementById('valFireButton').innerText = fireButton + '%';
 
-      // ---- deterministic hash ----
-      function hashCode(str) {
-        let hash = 0;
-        if (str.length === 0) return hash;
-        for (let i = 0; i < str.length; i++) {
-          const char = str.charCodeAt(i);
-          hash = ((hash << 5) - hash) + char;
-          hash = hash & hash;
-        }
-        return Math.abs(hash);
-      }
+      document.getElementById('resultSection').style.display = 'block';
+    }
 
-      // ---- deterministic sensitivity generator ----
-      function generateSensi(seedBase, maxVal, aiWeight) {
-        const seed = hashCode(seedBase + 'zaka');
-        const range = maxVal - 100;
-        if (range <= 0) return 100;
-        const x = (seed % 9973) / 9973;
-        const adjusted = 100 + (x * range * (0.80 + 0.20 * (seed % 10) / 10));
-        return Math.min(maxVal, Math.max(100, Math.floor(adjusted)));
-      }
+    function copySettings() {
+      const g = document.getElementById('valGeneral').innerText;
+      const rd = document.getElementById('valRedDot').innerText;
+      const s2 = document.getElementById('val2x').innerText;
+      const s4 = document.getElementById('val4x').innerText;
+      const sn = document.getElementById('valSniper').innerText;
+      const fl = document.getElementById('valFreeLook').innerText;
+      const fb = document.getElementById('valFireButton').innerText;
 
-      // ---- compute sensitivities ----
-      function computeSensitivities(device, platform, game, maxSensi, info, apiEndpoint) {
-        const base =
-          `${device}|${platform}|${game}|${info.screenWidth}|${info.screenHeight}|${info.pixelRatio}|${info.touchPoints}|${info.userAgent}`;
-        const fp = hashCode(base + 'fingerprint') % 1000;
-        const aiWeight = 0.80 + (fp / 5000);
+      const textToCopy = `Zaka Sensi Settings:\nGeneral: ${g}\nRed Dot: ${rd}\n2x Scope: ${s2}\n4x Scope: ${s4}\nSniper Scope: ${sn}\nFree Look: ${fl}\nFire Button: ${fb}`;
 
-        const general = generateSensi(base + 'general', maxSensi, aiWeight);
-        const redDot = generateSensi(base + 'reddot', maxSensi, aiWeight);
-        const scope2x = generateSensi(base + '2x', maxSensi, aiWeight);
-        const scope4x = generateSensi(base + '4x', maxSensi, aiWeight);
-        const sniper = generateSensi(base + 'sniper', maxSensi, aiWeight);
-        const freeLook = generateSensi(base + 'freelook', maxSensi, aiWeight);
-
-        const confidence = 82 + (fp % 18);
-        return {
-          general,
-          redDot,
-          scope2x,
-          scope4x,
-          sniper,
-          freeLook,
-          fingerprint: fp,
-          confidence: confidence,
-          aiWeight: aiWeight
-        };
-      }
-
-      // ---- collect browser info ----
-      function collectDeviceInfo() {
-        const ua = navigator.userAgent || '';
-        const platform = navigator.platform || 'unknown';
-        const touchPoints = navigator.maxTouchPoints || 0;
-        const screenW = screen.width || 0;
-        const screenH = screen.height || 0;
-        const pixelRatio = window.devicePixelRatio || 1;
-        let os = 'Unknown';
-        if (ua.indexOf('Android') > -1) os = 'Android';
-        else if (ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1) os = 'iOS';
-        else if (ua.indexOf('Windows') > -1) os = 'Windows';
-        else if (ua.indexOf('Mac') > -1) os = 'macOS';
-        else if (ua.indexOf('Linux') > -1) os = 'Linux';
-        return {
-          userAgent: ua,
-          platform: platform,
-          touchPoints: touchPoints,
-          screenWidth: screenW,
-          screenHeight: screenH,
-          pixelRatio: pixelRatio,
-          os: os,
-          touchSupported: touchPoints > 0
-        };
-      }
-
-      // ---- update summary ----
-      function updateSummary(info) {
-        summaryBox.innerHTML = `
-          <div class="summary-item"><span><i class="fas fa-cube" style="margin-right:6px;color:#6a7ba0;"></i>Platform</span><span>${info.os}</span></div>
-          <div class="summary-item"><span><i class="fas fa-hand-pointer" style="margin-right:6px;color:#6a7ba0;"></i>Touch</span><span>${info.touchSupported ? '✅ Supported' : '❌ Not detected'}</span></div>
-          <div class="summary-item"><span><i class="fas fa-expand" style="margin-right:6px;color:#6a7ba0;"></i>Resolution</span><span>${info.screenWidth} × ${info.screenHeight}</span></div>
-          <div class="summary-item"><span><i class="fas fa-eye" style="margin-right:6px;color:#6a7ba0;"></i>Pixel Ratio</span><span>${info.pixelRatio.toFixed(2)}</span></div>
-        `;
-      }
-
-      // ---- loading animation ----
-      let progress = 0;
-      let animationInterval = null;
-
-      function startLoadingAnimation() {
-        const statusMessages = [
-          'Initializing ZAKA AI engine...',
-          'Detecting browser environment...',
-          'Analyzing screen resolution...',
-          'Analyzing touch capability...',
-          'Building device fingerprint...',
-          'Calibrating AI detection...',
-          'Ready for setup.'
-        ];
-        let msgIndex = 0;
-        progress = 0;
-        if (animationInterval) clearInterval(animationInterval);
-        animationInterval = setInterval(() => {
-          progress += 0.5 + Math.random() * 1.4;
-          if (progress > 50) progress = 50;
-          progressBar.style.width = progress + '%';
-          progressPercent.textContent = Math.floor(progress) + '%';
-          const idx = Math.min(Math.floor(progress / 8), statusMessages.length - 1);
-          statusMsg.textContent = statusMessages[idx] || 'Analyzing...';
-          if (progress >= 50) {
-            clearInterval(animationInterval);
-            animationInterval = null;
-            statusMsg.textContent = '✅ AI analysis complete. Setup your profile.';
-
-            const fp = hashCode(JSON.stringify(deviceInfo) + 'zaka') % 1000;
-            aiFingerprint.textContent = `ZAKA-${String(fp).padStart(4, '0')}`;
-            const conf = 82 + (fp % 18);
-            aiConfidence.textContent = `${conf}%`;
-
-            loadingScreen.classList.add('hidden');
-            setupScreen.classList.remove('hidden');
-
-            // --- PLAY SOUND when dashboard appears ---
-            playCompletionSound();
-          }
-        }, 140);
-      }
-
-      // ---- card toggles ----
-      function setupCardToggles(container, callback) {
-        const cards = container.querySelectorAll('.card-option');
-        cards.forEach(card => {
-          card.addEventListener('click', function() {
-            cards.forEach(c => c.classList.remove('active'));
-            this.classList.add('active');
-            if (callback) callback(this.dataset.value);
-          });
-        });
-      }
-
-      // ---- generate and show results ----
-      function generateAndShow() {
-        const deviceName = deviceNameInput.value.trim() || 'My Device';
-        const maxSensi = parseInt(maxSensiInput.value, 10);
-        const clampedMax = Math.min(200, Math.max(100, maxSensi));
-        maxSensiInput.value = clampedMax;
-
-        const info = deviceInfo;
-        const platform = currentPlatform;
-        const game = currentGame;
-        const apiEndpoint = apiEndpointInput.value.trim() || customApiEndpoint;
-
-        const result = computeSensitivities(deviceName, platform, game, clampedMax, info, apiEndpoint);
-        generatedSensitivities = {
-          general: result.general,
-          redDot: result.redDot,
-          scope2x: result.scope2x,
-          scope4x: result.scope4x,
-          sniper: result.sniper,
-          freeLook: result.freeLook,
-          fingerprint: result.fingerprint,
-          confidence: result.confidence
-        };
-
-        resultDeviceName.textContent = deviceName;
-        settingsDeviceName.textContent = deviceName;
-        sensiGeneral.textContent = result.general;
-        sensiRedDot.textContent = result.redDot;
-        sensi2x.textContent = result.scope2x;
-        sensi4x.textContent = result.scope4x;
-        sensiSniper.textContent = result.sniper;
-        sensiFreeLook.textContent = result.freeLook;
-
-        aiResultAnalysis.textContent = `AI weight ${(result.aiWeight * 100).toFixed(0)}%`;
-        aiDeviceMatch.textContent = `${82 + (result.fingerprint % 18)}%`;
-        aiApiStatus.textContent = apiConnected ? '✅ Connected' : '⚡ Local AI';
-
-        let recs = [];
-        if (platform === 'Android') {
-          recs = [
-            'Use the highest stable refresh rate available.',
-            'Disable battery saver while gaming.',
-            'Keep the game updated.',
-            'Close unnecessary background applications.',
-            'Use a stable touch-response configuration.'
-          ];
-        } else if (platform === 'iOS') {
-          recs = [
-            'Use the highest available display refresh rate.',
-            'Disable Low Power Mode while gaming.',
-            'Close unnecessary applications.',
-            'Keep iOS and the game updated.'
-          ];
-        } else {
-          recs = [
-            'Use a stable monitor refresh rate.',
-            'Keep mouse polling/configuration consistent.',
-            'Disable unnecessary background applications.',
-            'Use a stable FPS configuration.'
-          ];
-        }
-        settingsList.innerHTML = recs.map(r => `<li>${r}</li>`).join('');
-        settingsTitle.innerHTML =
-          `<i class="fas fa-cog" style="margin-right:10px;color:#f0932b;"></i>USE THESE DEVICE SETTINGS FOR <span id="settingsDeviceName">${deviceName}</span>`;
-
-        setupScreen.classList.add('hidden');
-        resultScreen.classList.remove('hidden');
-        copyToast.classList.add('hidden');
-      }
-
-      // ---- copy ----
-      function copySensi() {
-        const device = deviceNameInput.value.trim() || 'My Device';
-        const game = currentGame;
-        const s = generatedSensitivities;
-        if (!s || !s.general) return;
-        const text = `ZAKA CHEATS SENSI · AI GENERATED
-        Device: ${device}
-        Game: ${game}
-        AI Confidence: ${s.confidence || '--'}%
-        
-        General: ${s.general}
-        Red Dot: ${s.redDot}
-        2X Scope: ${s.scope2x}
-        4X Scope: ${s.scope4x}
-        Sniper Scope: ${s.sniper}
-        Free Look: ${s.freeLook}
-        
-        Device Settings:
-        Use the recommended settings shown in the application.`;
-        navigator.clipboard.writeText(text).then(() => {
-          copyToast.classList.remove('hidden');
-          setTimeout(() => copyToast.classList.add('hidden'), 2800);
-        }).catch(() => {
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          ta.remove();
-          copyToast.classList.remove('hidden');
-          setTimeout(() => copyToast.classList.add('hidden'), 2800);
-        });
-      }
-
-      // ---- save as image ----
-      function saveAsImage() {
-        const device = deviceNameInput.value.trim() || 'My Device';
-        const s = generatedSensitivities;
-        if (!s || !s.general) return;
-        const canvas = document.createElement('canvas');
-        canvas.width = 600;
-        canvas.height = 800;
-        const ctx = canvas.getContext('2d');
-
-        // Background
-        const grad = ctx.createRadialGradient(300, 400, 100, 300, 400, 500);
-        grad.addColorStop(0, '#141d32');
-        grad.addColorStop(1, '#080b13');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Border glow
-        ctx.shadowColor = '#ee5a24';
-        ctx.shadowBlur = 30;
-        ctx.strokeStyle = '#ee5a24';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
-        ctx.shadowBlur = 0;
-
-        // Icon
-        ctx.fillStyle = '#ee5a24';
-        ctx.shadowColor = '#ee5a24';
-        ctx.shadowBlur = 20;
-        ctx.beginPath();
-        ctx.roundRect(40, 40, 50, 50, 14);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = '#fff';
-        ctx.font = '28px "Font Awesome 6 Free"';
-        ctx.fillText('\uf0e7', 52, 78);
-
-        // Title
-        const titleGrad = ctx.createLinearGradient(0, 0, 400, 0);
-        titleGrad.addColorStop(0, '#ff6b6b');
-        titleGrad.addColorStop(0.5, '#ee5a24');
-        titleGrad.addColorStop(1, '#f0932b');
-        ctx.fillStyle = titleGrad;
-        ctx.font = 'bold 28px "Inter", "Segoe UI", sans-serif';
-        ctx.fillText('ZAKA CHEATS SENSI', 110, 78);
-
-        ctx.fillStyle = '#6a7ba0';
-        ctx.font = '13px "Inter", sans-serif';
-        ctx.fillText('⚡ AI POWERED · FREE FIRE', 110, 106);
-
-        // Device info
-        ctx.fillStyle = '#bcc6e6';
-        ctx.font = '16px "Inter", sans-serif';
-        ctx.fillText(`Device: ${device}`, 40, 150);
-        ctx.fillText(`Platform: ${currentPlatform}  |  Game: ${currentGame}`, 40, 178);
-
-        // Sensitivities
-        ctx.fillStyle = '#eef2f8';
-        ctx.font = 'bold 18px "Inter", sans-serif';
-        ctx.fillText('Sensitivity Profile', 40, 226);
-
-        const labels = ['General', 'Red Dot', '2X Scope', '4X Scope', 'Sniper', 'Free Look'];
-        const values = [s.general, s.redDot, s.scope2x, s.scope4x, s.sniper, s.freeLook];
-        let y = 270;
-        ctx.font = '16px "Inter", sans-serif';
-        labels.forEach((label, i) => {
-          ctx.fillStyle = '#b7c3e0';
-          ctx.fillText(label, 60, y);
-          ctx.fillStyle = '#f0932b';
-          ctx.font = 'bold 22px "Inter", sans-serif';
-          ctx.fillText(values[i].toString(), 300, y);
-          ctx.font = '16px "Inter", sans-serif';
-          y += 50;
-        });
-
-        // AI info
-        ctx.fillStyle = '#6a7ba0';
-        ctx.font = '13px "Inter", sans-serif';
-        ctx.fillText(`AI Confidence: ${s.confidence || '--'}%  ·  Fingerprint: ZAKA-${String(s.fingerprint || '0000').padStart(4, '0')}`,
-          40, y + 16);
-
-        // Device settings
-        ctx.fillStyle = '#7a8bb5';
-        ctx.font = '14px "Inter", sans-serif';
-        ctx.fillText('Device Settings:', 40, y + 56);
-        ctx.fillStyle = '#b7c3e0';
-        ctx.font = '12px "Inter", sans-serif';
-        let recs = [];
-        if (currentPlatform === 'Android') recs = ['Highest refresh rate', 'Disable battery saver', 'Close background apps'];
-        else if (currentPlatform === 'iOS') recs = ['Highest refresh rate', 'Disable Low Power Mode', 'Close apps'];
-        else recs = ['Stable monitor refresh', 'Consistent mouse polling', 'Disable background apps'];
-        recs.forEach((r, i) => {
-          ctx.fillText(`▸ ${r}`, 60, y + 84 + i * 24);
-        });
-
-        ctx.fillStyle = '#3d4d6e';
-        ctx.font = '11px "Inter", sans-serif';
-        const date = new Date().toLocaleDateString();
-        ctx.fillText(`Generated: ${date}  ·  ZAKA AI v2.5`, 40, canvas.height - 30);
-
-        const link = document.createElement('a');
-        const sanitized = device.replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'device';
-        link.download = `${sanitized}-zaka-sensi.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      }
-
-      // ---- API test ----
-      function testApiConnection() {
-        const endpoint = apiEndpointInput.value.trim() || customApiEndpoint;
-        apiStatus.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:6px;"></i> Testing...';
-        apiStatus.style.color = '#fbbf24';
-
-        setTimeout(() => {
-          const success = Math.random() > 0.2;
-          if (success) {
-            apiConnected = true;
-            apiStatus.innerHTML =
-              '<i class="fas fa-circle" style="color:#34d399;font-size:0.5rem;margin-right:6px;"></i> ✅ Connected to custom AI endpoint';
-            apiStatus.style.color = '#34d399';
-            customApiEndpoint = endpoint;
-          } else {
-            apiConnected = false;
-            apiStatus.innerHTML =
-              '<i class="fas fa-circle" style="color:#f87171;font-size:0.5rem;margin-right:6px;"></i> ⚠️ Connection failed · using local AI';
-            apiStatus.style.color = '#f87171';
-          }
-        }, 1200);
-      }
-
-      // ---- reset ----
-      function resetToSetup() {
-        resultScreen.classList.add('hidden');
-        setupScreen.classList.remove('hidden');
-      }
-
-      // ---- init ----
-      function init() {
-        // Load the sound file
-        loadSound();
-
-        deviceInfo = collectDeviceInfo();
-        updateSummary(deviceInfo);
-
-        let detectedPlatform = 'Android';
-        if (deviceInfo.os === 'iOS') detectedPlatform = 'iOS';
-        else if (deviceInfo.os === 'Windows' || deviceInfo.os === 'macOS' || deviceInfo.os === 'Linux') detectedPlatform =
-        'PC';
-        platformCards.forEach(card => {
-          card.classList.remove('active');
-          if (card.dataset.value === detectedPlatform) {
-            card.classList.add('active');
-            currentPlatform = detectedPlatform;
-          }
-        });
-        if (!document.querySelector('#platformSelector .card-option.active')) {
-          document.querySelector('#platformSelector .card-option[data-value="Android"]').classList.add('active');
-          currentPlatform = 'Android';
-        }
-
-        gameCards.forEach(card => {
-          card.classList.remove('active');
-          if (card.dataset.value === 'Free Fire') card.classList.add('active');
-        });
-        currentGame = 'Free Fire';
-
-        setupCardToggles(document.getElementById('platformSelector'), (val) => { currentPlatform = val; });
-        setupCardToggles(document.getElementById('gameSelector'), (val) => { currentGame = val; });
-
-        generateBtn.addEventListener('click', generateAndShow);
-        generateAgainBtn.addEventListener('click', resetToSetup);
-        copyBtn.addEventListener('click', copySensi);
-        saveImageBtn.addEventListener('click', saveAsImage);
-        apiTestBtn.addEventListener('click', testApiConnection);
-
-        apiEndpointInput.value = customApiEndpoint;
-
-        // roundRect polyfill for canvas if needed
-        if (!CanvasRenderingContext2D.prototype.roundRect) {
-          CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-            if (r > w / 2) r = w / 2;
-            if (r > h / 2) r = h / 2;
-            this.moveTo(x + r, y);
-            this.lineTo(x + w - r, y);
-            this.quadraticCurveTo(x + w, y, x + w, y + r);
-            this.lineTo(x + w, y + h - r);
-            this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-            this.lineTo(x + r, y + h);
-            this.quadraticCurveTo(x, y + h, x, y + h - r);
-            this.lineTo(x, y + r);
-            this.quadraticCurveTo(x, y, x + r, y);
-            this.closePath();
-            return this;
-          };
-        }
-
-        startLoadingAnimation();
-      }
-
-      init();
-    })();
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Sensitivity settings copied to clipboard!');
+      });
+    }
   </script>
 </body>
 </html>
