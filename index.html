@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strick Sensi - Free Fire Sensitivity Generator</title>
+  <title>Zaka Sensi - Free Fire Sensitivity Generator</title>
   <style>
     :root {
-      --bg-dark: #07070a;
-      --card-bg: #0f1017;
-      --border-color: #1f2233;
+      --bg-dark: #090a10;
+      --card-bg: #121420;
+      --border-color: #23273e;
       --accent-cyan: #00f2fe;
       --accent-blue: #4facfe;
+      --accent-purple: #9b51e0;
       --accent-red: #ff2a5f;
       --text-white: #ffffff;
-      --text-gray: #8f96a3;
+      --text-gray: #9aa1b1;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     body {
@@ -35,7 +36,7 @@
       overflow-x: hidden;
     }
 
-    /* Initial Tap Overlay for Audio Autoplay */
+    /* Initial Tap Overlay for Browser Audio/Video Policies */
     #startOverlay {
       position: fixed;
       top: 0;
@@ -49,6 +50,8 @@
       align-items: center;
       justify-content: center;
       gap: 20px;
+      padding: 20px;
+      text-align: center;
     }
 
     /* Loader Overlay */
@@ -64,13 +67,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 20px;
+      text-align: center;
     }
 
     .loader-bar-bg {
       width: 280px;
-      height: 8px;
-      background: #171926;
-      border-radius: 4px;
+      height: 10px;
+      background: #191c2d;
+      border-radius: 5px;
       overflow: hidden;
       border: 1px solid var(--border-color);
       margin-top: 15px;
@@ -79,7 +84,7 @@
     .loader-bar-fill {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
       transition: width 0.05s linear;
     }
 
@@ -90,22 +95,43 @@
       margin-top: 10px;
     }
 
-    /* Main Card Container */
+    /* TrickSensi Style Main Container */
     .container {
-      max-width: 550px;
+      max-width: 650px;
       width: 100%;
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
-      padding: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      padding: 25px;
       text-align: center;
       display: none;
     }
 
+    .brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-container {
+      margin-bottom: 12px;
+    }
+
+    .logo-container img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+      object-fit: cover;
+      background-color: #191c2d;
+    }
+
     .header-tag {
       display: inline-block;
-      padding: 4px 12px;
+      padding: 4px 14px;
       background: rgba(0, 242, 254, 0.1);
       border: 1px solid var(--accent-cyan);
       border-radius: 20px;
@@ -114,7 +140,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     h1 {
@@ -122,7 +148,7 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 5px;
@@ -130,67 +156,67 @@
 
     p.subtitle {
       color: var(--text-gray);
-      font-size: 0.85rem;
-      margin-bottom: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
     }
 
-    /* Video Preview Styling */
-    .video-preview-container {
+    /* Video Container - Normal Aspect Ratio & Unmuted */
+    .video-preview-wrapper {
       width: 100%;
-      height: 220px;
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--border-color);
-      margin-bottom: 20px;
-      position: relative;
+      margin-bottom: 25px;
       background: #000;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     }
 
-    .video-preview-container video {
+    .video-preview-wrapper video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      display: block;
     }
 
     /* Form Controls */
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       text-align: left;
     }
 
     label {
       display: block;
-      margin-bottom: 6px;
-      font-size: 0.85rem;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
       font-weight: 600;
       color: var(--text-white);
     }
 
     select {
       width: 100%;
-      padding: 12px;
-      background-color: #151722;
+      padding: 14px;
+      background-color: #181b2b;
       border: 1px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 12px;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 1rem;
       outline: none;
       cursor: pointer;
+      transition: border-color 0.2s;
     }
 
     select:focus {
       border-color: var(--accent-cyan);
-      box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
     }
 
-    .btn-strick {
+    .btn-tricksensi {
       width: 100%;
-      padding: 14px;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      padding: 16px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       color: #000;
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -199,30 +225,30 @@
       margin-top: 10px;
     }
 
-    .btn-strick:hover {
+    .btn-tricksensi:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
     }
 
     /* Output Results Grid */
     .result-section {
       display: none;
-      margin-top: 25px;
-      padding-top: 20px;
+      margin-top: 30px;
+      padding-top: 25px;
       border-top: 1px solid var(--border-color);
     }
 
     .sensi-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 15px;
     }
 
     .sensi-card {
-      background: #151722;
-      padding: 12px 15px;
-      border-radius: 10px;
+      background: #181b2b;
+      padding: 14px 16px;
+      border-radius: 12px;
       border: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
@@ -230,42 +256,46 @@
     }
 
     .sensi-card span.label {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--text-gray);
       font-weight: 500;
     }
 
     .sensi-card span.value {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--accent-cyan);
     }
 
     .fire-button-card {
-      background: #151722;
-      padding: 12px 15px;
-      border-radius: 10px;
+      background: #181b2b;
+      padding: 14px 16px;
+      border-radius: 12px;
       border: 1px solid var(--accent-red);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .fire-button-card span.value {
+      font-size: 1.2rem;
+      font-weight: 800;
       color: var(--accent-red);
     }
 
     .btn-copy {
       background: transparent;
-      border: 1px solid var(--accent-cyan);
+      border: 2px solid var(--accent-cyan);
       color: var(--accent-cyan);
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
       cursor: pointer;
+      font-size: 0.95rem;
       font-weight: 700;
       transition: all 0.2s;
       width: 100%;
+      text-transform: uppercase;
     }
 
     .btn-copy:hover {
@@ -274,27 +304,33 @@
     }
 
     footer {
-      margin-top: 25px;
+      margin-top: 30px;
       color: var(--text-gray);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sound File -->
+  <!-- Audio Element -->
   <audio id="sensiAudio" src="https://files.catbox.moe/mkojpz.wav" preload="auto"></audio>
 
-  <!-- Initial Tap Overlay -->
+  <!-- Initial User Tap Overlay -->
   <div id="startOverlay">
-    <div class="header-tag">Strick Sensi v2.0</div>
+    <div class="logo-container">
+      <img src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo" onerror="this.src='https://ibb.co/WWNK9qxv'">
+    </div>
+    <div class="header-tag">TrickSensi Edition</div>
     <h1>Zaka Sensi</h1>
-    <p class="subtitle">Click below to auto-start sensitivity generator</p>
-    <button class="btn-strick" style="max-width: 260px;" onclick="startApp()">Start App</button>
+    <p class="subtitle">Click below to generate sensitivity and auto-play video</p>
+    <button class="btn-tricksensi" style="max-width: 280px;" onclick="startApp()">Enter Generator</button>
   </div>
 
   <!-- Loading Screen Overlay -->
   <div id="loaderOverlay">
+    <div class="logo-container">
+      <img src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
+    </div>
     <h1>Zaka Sensi</h1>
     <div class="loader-text" id="loaderText">0%</div>
     <div class="loader-bar-bg">
@@ -302,22 +338,27 @@
     </div>
   </div>
 
-  <!-- Main App Layout -->
+  <!-- Main Website Container -->
   <div class="container" id="mainContainer">
-    <div class="header-tag">Strick Mode Active</div>
-    <h1>Zaka Sensi</h1>
-    <p class="subtitle">Pro Free Fire Headshot Sensitivity Generator (100 - 200)</p>
+    <div class="brand-header">
+      <div class="logo-container">
+        <img src="https://i.ibb.co/WWNK9qxv/Gemini-Generated-Image-z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
+      </div>
+      <div class="header-tag">TrickSensi Generator</div>
+      <h1>Zaka Sensi</h1>
+      <p class="subtitle">Free Fire Headshot Sensitivity (Range: 100 - 200)</p>
+    </div>
 
-    <!-- Auto Play Video Preview -->
-    <div class="video-preview-container">
-      <video id="previewVideo" autoplay loop muted playsinline>
+    <!-- Video Preview Section (Normal size with video sound) -->
+    <div class="video-preview-wrapper">
+      <video id="previewVideo" controls playsinline preload="auto">
         <source src="https://videotourl.com/videos/1787084183797-f4f9f373-c452-4fc6-9580-794c7a983313.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
 
     <div class="form-group">
-      <label for="device">Device Brand:</label>
+      <label for="device">Select Device Brand:</label>
       <select id="device">
         <option value="samsung">Samsung</option>
         <option value="xiaomi">Xiaomi / Redmi / POCO</option>
@@ -329,7 +370,7 @@
     </div>
 
     <div class="form-group">
-      <label for="ram">Device RAM:</label>
+      <label for="ram">Select Device RAM:</label>
       <select id="ram">
         <option value="2-3">2GB - 3GB RAM</option>
         <option value="4-6">4GB - 6GB RAM</option>
@@ -337,7 +378,7 @@
       </select>
     </div>
 
-    <button class="btn-strick" onclick="generateSensi()">Generate Sensi</button>
+    <button class="btn-tricksensi" onclick="generateSensi()">Generate Best Sensi</button>
 
     <div class="result-section" id="resultSection">
       <div class="sensi-grid">
@@ -372,11 +413,11 @@
         <span class="value" id="valFireButton">45%</span>
       </div>
 
-      <button class="btn-copy" onclick="copySettings()">Copy Strick Sensi</button>
+      <button class="btn-copy" onclick="copySettings()">Copy TrickSensi Settings</button>
     </div>
 
     <footer>
-      &copy; 2026 Zaka Sensi x Strick Sensi. All rights reserved.
+      &copy; 2026 Zaka Sensi x TrickSensi. All rights reserved.
     </footer>
   </div>
 
@@ -389,7 +430,9 @@
       document.getElementById('startOverlay').style.display = 'none';
       document.getElementById('loaderOverlay').style.display = 'flex';
       
+      // Load audio/video elements
       audio.load();
+      if (video) video.load();
 
       let progress = 0;
       const fill = document.getElementById('loaderFill');
@@ -400,10 +443,10 @@
         fill.style.width = progress + '%';
         text.innerText = progress + '%';
 
-        // Play sound when progress reaches 90%
+        // Play audio sound at 90%
         if (progress >= 90 && !soundPlayed) {
           soundPlayed = true;
-          audio.play().catch(e => console.log('Audio autoplay prevented:', e));
+          audio.play().catch(e => console.log('Audio playback prevented:', e));
         }
 
         if (progress >= 100) {
@@ -412,9 +455,9 @@
             document.getElementById('loaderOverlay').style.display = 'none';
             document.getElementById('mainContainer').style.display = 'block';
             
-            // Auto-play preview video when app loads
+            // Auto-start video with audio upon loading complete
             if (video) {
-              video.play().catch(e => console.log('Video autoplay error:', e));
+              video.play().catch(e => console.log('Video playback error:', e));
             }
           }, 300);
         }
@@ -473,10 +516,10 @@
       const fl = document.getElementById('valFreeLook').innerText;
       const fb = document.getElementById('valFireButton').innerText;
 
-      const textToCopy = `Zaka Sensi (Strick Sensi Settings):\nGeneral: ${g}\nRed Dot: ${rd}\n2x Scope: ${s2}\n4x Scope: ${s4}\nSniper Scope: ${sn}\nFree Look: ${fl}\nFire Button: ${fb}`;
+      const textToCopy = `Zaka Sensi Settings:\nGeneral: ${g}\nRed Dot: ${rd}\n2x Scope: ${s2}\n4x Scope: ${s4}\nSniper Scope: ${sn}\nFree Look: ${fl}\nFire Button: ${fb}`;
 
       navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('Strick Sensi settings copied to clipboard!');
+        alert('Settings copied to clipboard!');
       });
     }
   </script>
