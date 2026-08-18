@@ -28,9 +28,67 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
+    /* Start Overlay for Audio Permission */
+    #startOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-color);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* Loader Overlay */
+    #loaderOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-color);
+      z-index: 99;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loader-bar-bg {
+      width: 280px;
+      height: 12px;
+      background: #240d17;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--accent-red);
+      margin-top: 15px;
+    }
+
+    .loader-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-purple));
+      transition: width 0.05s linear;
+    }
+
+    .loader-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent-red);
+      margin-top: 10px;
+    }
+
+    /* Main Container */
     .container {
       max-width: 600px;
       width: 100%;
@@ -40,7 +98,7 @@
       box-shadow: 0 0 25px rgba(255, 30, 39, 0.3);
       padding: 25px;
       text-align: center;
-      margin-top: 20px;
+      display: none;
     }
 
     .logo-container {
@@ -101,7 +159,7 @@
       box-shadow: 0 0 8px var(--accent-purple);
     }
 
-    .btn-generate {
+    .btn-action {
       width: 100%;
       padding: 14px;
       background: linear-gradient(90deg, var(--accent-red), var(--accent-purple));
@@ -115,7 +173,7 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .btn-generate:hover {
+    .btn-action:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(139, 44, 245, 0.4);
     }
@@ -180,16 +238,38 @@
 </head>
 <body>
 
-  <div class="container">
-    <!-- Logo Section -->
+  <!-- Audio Element -->
+  <audio id="sensiAudio" src="https://files.catbox.moe/mkojpz.wav" preload="auto"></audio>
+
+  <!-- Initial User Tap Overlay to satisfy browser autoplay policies -->
+  <div id="startOverlay">
+    <div class="logo-container">
+      <img src="Gemini_Generated_Image_z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
+    </div>
+    <h1>Zaka Sensi</h1>
+    <button class="btn-action" style="max-width: 250px;" onclick="startApp()">Enter Site</button>
+  </div>
+
+  <!-- Loading Screen Overlay -->
+  <div id="loaderOverlay">
+    <div class="logo-container">
+      <img src="Gemini_Generated_Image_z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
+    </div>
+    <div class="loader-text" id="loaderText">0%</div>
+    <div class="loader-bar-bg">
+      <div class="loader-bar-fill" id="loaderFill"></div>
+    </div>
+  </div>
+
+  <!-- Main Website Container -->
+  <div class="container" id="mainContainer">
     <div class="logo-container">
       <img src="Gemini_Generated_Image_z49spdz49spdz49s.jpg" alt="Zaka Sensi Logo">
     </div>
 
     <h1>Zaka Sensi</h1>
-    <p class="subtitle">Best Free Fire Headshot Sensitivity Generator</p>
+    <p class="subtitle">Best Free Fire Headshot Sensitivity Generator (100 - 200 Range)</p>
 
-    <!-- Inputs -->
     <div class="form-group">
       <label for="device">Select Device Brand:</label>
       <select id="device">
@@ -198,7 +278,7 @@
         <option value="realme">Realme</option>
         <option value="iphone">iPhone / iPad</option>
         <option value="infinix">Infinix / Tecno</option>
-        <option value="other">Other Android</option>
+        <option value="other">Other Device</option>
       </select>
     </div>
 
@@ -211,34 +291,33 @@
       </select>
     </div>
 
-    <button class="btn-generate" onclick="generateSensi()">Generate Best Sensi</button>
+    <button class="btn-action" onclick="generateSensi()">Generate Best Sensi</button>
 
-    <!-- Output -->
     <div class="result-section" id="resultSection">
       <div class="sensi-grid">
         <div class="sensi-item">
           <span class="label">General:</span>
-          <span class="value" id="valGeneral">95</span>
+          <span class="value" id="valGeneral">190</span>
         </div>
         <div class="sensi-item">
           <span class="label">Red Dot:</span>
-          <span class="value" id="valRedDot">90</span>
+          <span class="value" id="valRedDot">185</span>
         </div>
         <div class="sensi-item">
           <span class="label">2x Scope:</span>
-          <span class="value" id="val2x">85</span>
+          <span class="value" id="val2x">175</span>
         </div>
         <div class="sensi-item">
           <span class="label">4x Scope:</span>
-          <span class="value" id="val4x">80</span>
+          <span class="value" id="val4x">165</span>
         </div>
         <div class="sensi-item">
           <span class="label">Sniper Scope:</span>
-          <span class="value" id="valSniper">50</span>
+          <span class="value" id="valSniper">140</span>
         </div>
         <div class="sensi-item">
           <span class="label">Free Look:</span>
-          <span class="value" id="valFreeLook">65</span>
+          <span class="value" id="valFreeLook">150</span>
         </div>
       </div>
 
@@ -249,13 +328,48 @@
 
       <button class="btn-copy" onclick="copySettings()">Copy Settings</button>
     </div>
+
+    <footer>
+      &copy; 2026 Zaka Sensi. All rights reserved.
+    </footer>
   </div>
 
-  <footer>
-    &copy; 2026 Zaka Sensi. All rights reserved.
-  </footer>
-
   <script>
+    const audio = document.getElementById('sensiAudio');
+    let soundPlayed = false;
+
+    function startApp() {
+      document.getElementById('startOverlay').style.display = 'none';
+      document.getElementById('loaderOverlay').style.display = 'flex';
+      
+      // Initialize audio context via user interaction
+      audio.load();
+
+      let progress = 0;
+      const fill = document.getElementById('loaderFill');
+      const text = document.getElementById('loaderText');
+
+      const interval = setInterval(() => {
+        progress += 1;
+        fill.style.width = progress + '%';
+        text.innerText = progress + '%';
+
+        // Play sound when progress reaches 90%
+        if (progress >= 90 && !soundPlayed) {
+          soundPlayed = true;
+          audio.play().catch(e => console.log('Audio autoplay prevented:', e));
+        }
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            document.getElementById('loaderOverlay').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'block';
+          }, 300);
+        }
+      }, 30);
+    }
+
     function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -265,28 +379,29 @@
 
       let general, redDot, scope2, scope4, sniper, freeLook, fireButton;
 
+      // Sensitivity values strictly kept between 100 and 200
       if (ram === '2-3') {
-        general = getRandomInt(96, 100);
-        redDot = getRandomInt(92, 98);
-        scope2 = getRandomInt(88, 95);
-        scope4 = getRandomInt(85, 92);
+        general = getRandomInt(185, 200);
+        redDot = getRandomInt(180, 198);
+        scope2 = getRandomInt(175, 195);
+        scope4 = getRandomInt(170, 190);
         fireButton = getRandomInt(40, 48);
       } else if (ram === '4-6') {
-        general = getRandomInt(90, 96);
-        redDot = getRandomInt(85, 92);
-        scope2 = getRandomInt(82, 90);
-        scope4 = getRandomInt(80, 88);
+        general = getRandomInt(160, 185);
+        redDot = getRandomInt(155, 180);
+        scope2 = getRandomInt(150, 175);
+        scope4 = getRandomInt(145, 170);
         fireButton = getRandomInt(45, 52);
       } else {
-        general = getRandomInt(85, 92);
-        redDot = getRandomInt(80, 88);
-        scope2 = getRandomInt(78, 85);
-        scope4 = getRandomInt(75, 82);
+        general = getRandomInt(130, 160);
+        redDot = getRandomInt(125, 155);
+        scope2 = getRandomInt(120, 150);
+        scope4 = getRandomInt(115, 145);
         fireButton = getRandomInt(50, 58);
       }
 
-      sniper = getRandomInt(45, 60);
-      freeLook = getRandomInt(50, 75);
+      sniper = getRandomInt(100, 140);
+      freeLook = getRandomInt(120, 170);
 
       document.getElementById('valGeneral').innerText = general;
       document.getElementById('valRedDot').innerText = redDot;
