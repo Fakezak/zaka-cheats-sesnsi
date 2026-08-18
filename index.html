@@ -750,7 +750,7 @@
 
       <!-- AI Detection Panel -->
       <div class="ai-detection-panel" id="aiDetectionPanel">
-        <div class="ai-row"><span class="ai-label"><i class="fas fa-brain" style="margin-right:6px;"></i>AI Model</span><span class="ai-value">ZAKA v2.4 · Deterministic</span></div>
+        <div class="ai-row"><span class="ai-label"><i class="fas fa-brain" style="margin-right:6px;"></i>AI Model</span><span class="ai-value">ZAKA v2.5 · Deterministic</span></div>
         <div class="ai-row"><span class="ai-label"><i class="fas fa-microchip"></i> Detection Engine</span><span class="ai-value confident">Active</span></div>
         <div class="ai-row"><span class="ai-label"><i class="fas fa-fingerprint"></i> Device Fingerprint</span><span class="ai-value" id="aiFingerprint">--</span></div>
         <div class="ai-row"><span class="ai-label"><i class="fas fa-chart-line"></i> Confidence Score</span><span class="ai-value confident" id="aiConfidence">--</span></div>
@@ -812,7 +812,7 @@
         </div>
         <span class="ai-badge" style="font-size:0.6rem; padding:4px 14px;">
           <span class="pulse-dot" style="width:8px;height:8px;"></span>
-          AI v2.4
+          AI v2.5
         </span>
       </div>
 
@@ -900,6 +900,69 @@
       let generatedSensitivities = {};
       let customApiEndpoint = 'https://api.zaka-ai.tech/v1/sensi';
       let apiConnected = false;
+
+      // ---- AUDIO SYSTEM ----
+      const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+
+      // Preload the sound from the provided URL
+      let soundBuffer = null;
+      let soundLoaded = false;
+
+      function loadSound() {
+        const url = 'https://files.catbox.moe/mkojpz.wav';
+        fetch(url)
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.arrayBuffer();
+          })
+          .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
+          .then(decodedData => {
+            soundBuffer = decodedData;
+            soundLoaded = true;
+            console.log('✅ Sound loaded successfully.');
+          })
+          .catch(err => {
+            console.warn('⚠️ Could not load sound:', err);
+            // Fallback: create a simple beep using oscillator
+            soundLoaded = false;
+          });
+      }
+
+      function playCompletionSound() {
+        if (soundLoaded && soundBuffer) {
+          try {
+            const source = audioCtx.createBufferSource();
+            source.buffer = soundBuffer;
+            source.connect(audioCtx.destination);
+            source.start(0);
+            console.log('🔊 Playing completion sound.');
+          } catch (e) {
+            console.warn('⚠️ Audio playback error:', e);
+            playFallbackBeep();
+          }
+        } else {
+          playFallbackBeep();
+        }
+      }
+
+      function playFallbackBeep() {
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'square';
+          osc.frequency.value = 880;
+          gain.gain.value = 0.15;
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          setTimeout(() => {
+            osc.stop();
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+          }, 250);
+        } catch (e) {
+          // Silently fail
+        }
+      }
 
       // ---- deterministic hash ----
       function hashCode(str) {
@@ -1023,6 +1086,9 @@
 
             loadingScreen.classList.add('hidden');
             setupScreen.classList.remove('hidden');
+
+            // --- PLAY SOUND when dashboard appears ---
+            playCompletionSound();
           }
         }, 140);
       }
@@ -1242,7 +1308,7 @@
         ctx.fillStyle = '#3d4d6e';
         ctx.font = '11px "Inter", sans-serif';
         const date = new Date().toLocaleDateString();
-        ctx.fillText(`Generated: ${date}  ·  ZAKA AI v2.4`, 40, canvas.height - 30);
+        ctx.fillText(`Generated: ${date}  ·  ZAKA AI v2.5`, 40, canvas.height - 30);
 
         const link = document.createElement('a');
         const sanitized = device.replace(/[^a-zA-Z0-9 ]/g, '').trim() || 'device';
@@ -1282,6 +1348,9 @@
 
       // ---- init ----
       function init() {
+        // Load the sound file
+        loadSound();
+
         deviceInfo = collectDeviceInfo();
         updateSummary(deviceInfo);
 
